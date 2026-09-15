@@ -1,0 +1,559 @@
+{
+  "mappings": [
+    {
+      "id": "d521fc82-fb9c-4628-8b16-d212e6511951",
+      "name": "Query events - default",
+      "request": {
+        "urlPathTemplate": "/v1/events",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"event\": {\n        \"event_id\": \"evt_18C8B8D284059DAF4a74c7cc2a3a669d\",\n        \"org_id\": \"org_id\",\n        \"source\": \"stripe\",\n        \"topic\": \"payments\",\n        \"event_type\": \"payment_intent.succeeded\",\n        \"event_time\": \"2024-01-15T09:30:00Z\",\n        \"ingestion_time\": \"2024-01-15T09:30:00Z\",\n        \"media\": {\n          \"media_type\": \"image/jpeg\",\n          \"size_bytes\": 1000000\n        },\n        \"entity_refs\": [\n          {\n            \"entity_type\": \"customer\",\n            \"entity_id\": \"cust_123\"\n          }\n        ]\n      },\n      \"entity_refs\": [\n        {\n          \"event_id\": \"event_id\",\n          \"entity_type\": \"customer\",\n          \"entity_id\": \"cust_123\",\n          \"created_by\": \"ingestion\",\n          \"created_at\": \"2024-01-15T09:30:00Z\"\n        }\n      ],\n      \"search_distance\": 1.1\n    }\n  ],\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d521fc82-fb9c-4628-8b16-d212e6511951",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "41237bf1-a9af-4f7a-950e-729f7ceda3c4",
+      "name": "Ingest a single event - default",
+      "request": {
+        "urlPathTemplate": "/v1/events",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"event_ids\": [\n    \"event_ids\"\n  ],\n  \"count\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "41237bf1-a9af-4f7a-950e-729f7ceda3c4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a10a4484-7126-4011-9aec-caec9de6cff0",
+      "name": "Ingest a batch of events - default",
+      "request": {
+        "urlPathTemplate": "/v1/events/batch",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"event_ids\": [\n    \"event_ids\"\n  ],\n  \"count\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a10a4484-7126-4011-9aec-caec9de6cff0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "43f00ada-2673-4e3d-a64b-848af2919045",
+      "name": "Stream live events over SSE - default",
+      "request": {
+        "urlPathTemplate": "/v1/events/stream",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "event: message\ndata: {\"event\":{\"event_id\":\"evt_18C8B8D284059DAF4a74c7cc2a3a669d\",\"org_id\":\"org_id\",\"source\":\"stripe\",\"topic\":\"payments\",\"event_type\":\"payment_intent.succeeded\",\"event_time\":\"2024-01-15T09:30:00Z\",\"ingestion_time\":\"2024-01-15T09:30:00Z\",\"payload\":{\"key\":\"value\"},\"media\":{\"media_type\":\"image/jpeg\",\"inline_blob\":\"inline_blob\",\"external_ref\":\"external_ref\",\"size_bytes\":1000000},\"entity_refs\":[{\"entity_type\":\"customer\",\"entity_id\":\"cust_123\"}],\"raw_body\":\"raw_body\"},\"entity_refs\":[{\"event_id\":\"event_id\",\"entity_type\":\"customer\",\"entity_id\":\"cust_123\",\"created_by\":\"ingestion\",\"created_at\":\"2024-01-15T09:30:00Z\"}],\"search_distance\":1.1}\n",
+        "headers": {
+          "Content-Type": "text/event-stream"
+        }
+      },
+      "uuid": "43f00ada-2673-4e3d-a64b-848af2919045",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "5ebe5d15-5cfc-43c2-815c-e4e2b249415d",
+      "name": "Get the event timeline for an entity - default",
+      "request": {
+        "urlPathTemplate": "/v1/timeline/{entity_type}/{entity_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "entity_type": {
+            "equalTo": "entity_type"
+          },
+          "entity_id": {
+            "equalTo": "entity_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"event\": {\n        \"event_id\": \"evt_18C8B8D284059DAF4a74c7cc2a3a669d\",\n        \"org_id\": \"org_id\",\n        \"source\": \"stripe\",\n        \"topic\": \"payments\",\n        \"event_type\": \"payment_intent.succeeded\",\n        \"event_time\": \"2024-01-15T09:30:00Z\",\n        \"ingestion_time\": \"2024-01-15T09:30:00Z\",\n        \"media\": {\n          \"media_type\": \"image/jpeg\",\n          \"size_bytes\": 1000000\n        },\n        \"entity_refs\": [\n          {\n            \"entity_type\": \"customer\",\n            \"entity_id\": \"cust_123\"\n          }\n        ]\n      },\n      \"entity_refs\": [\n        {\n          \"event_id\": \"event_id\",\n          \"entity_type\": \"customer\",\n          \"entity_id\": \"cust_123\",\n          \"created_by\": \"ingestion\",\n          \"created_at\": \"2024-01-15T09:30:00Z\"\n        }\n      ],\n      \"search_distance\": 1.1\n    }\n  ],\n  \"has_more\": true,\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5ebe5d15-5cfc-43c2-815c-e4e2b249415d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "04a72058-f7c3-4f55-9d1f-063027a146e4",
+      "name": "Semantic search over events - default",
+      "request": {
+        "urlPathTemplate": "/v1/search",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"event\": {\n        \"event_id\": \"evt_18C8B8D284059DAF4a74c7cc2a3a669d\",\n        \"org_id\": \"org_id\",\n        \"source\": \"stripe\",\n        \"topic\": \"payments\",\n        \"event_type\": \"payment_intent.succeeded\",\n        \"event_time\": \"2024-01-15T09:30:00Z\",\n        \"ingestion_time\": \"2024-01-15T09:30:00Z\",\n        \"media\": {\n          \"media_type\": \"image/jpeg\",\n          \"size_bytes\": 1000000\n        },\n        \"entity_refs\": [\n          {\n            \"entity_type\": \"customer\",\n            \"entity_id\": \"cust_123\"\n          }\n        ]\n      },\n      \"entity_refs\": [\n        {\n          \"event_id\": \"event_id\",\n          \"entity_type\": \"customer\",\n          \"entity_id\": \"cust_123\",\n          \"created_by\": \"ingestion\",\n          \"created_at\": \"2024-01-15T09:30:00Z\"\n        }\n      ],\n      \"search_distance\": 1.1\n    }\n  ],\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "04a72058-f7c3-4f55-9d1f-063027a146e4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8e062e95-4116-4384-a289-4176eb0267cd",
+      "name": "List event sources seen for this tenant - default",
+      "request": {
+        "urlPathTemplate": "/v1/discover/sources",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"source\": \"stripe\",\n      \"event_types\": [\n        \"event_types\"\n      ],\n      \"event_count\": 1000000,\n      \"first_seen\": \"2024-01-15T09:30:00Z\",\n      \"last_seen\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8e062e95-4116-4384-a289-4176eb0267cd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "19f03d64-6222-4720-9ce5-d40ead1d794c",
+      "name": "List entity types seen for this tenant - default",
+      "request": {
+        "urlPathTemplate": "/v1/discover/entity-types",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"entity_type\": \"customer\",\n      \"entity_count\": 1000000,\n      \"first_seen\": \"2024-01-15T09:30:00Z\",\n      \"last_seen\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "19f03d64-6222-4720-9ce5-d40ead1d794c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "c25e7056-8f3b-48e1-a595-90d03c677d77",
+      "name": "List entities of a type - default",
+      "request": {
+        "urlPathTemplate": "/v1/discover/entities/{entity_type}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "entity_type": {
+            "equalTo": "entity_type"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"entity_type\": \"customer\",\n      \"entity_id\": \"cust_123\",\n      \"event_count\": 1000000,\n      \"first_seen\": \"2024-01-15T09:30:00Z\",\n      \"last_seen\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c25e7056-8f3b-48e1-a595-90d03c677d77",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6c156087-4cd9-4d51-b6e6-3abb9bf1e65a",
+      "name": "Get the observed payload schema for a source and event type - default",
+      "request": {
+        "urlPathTemplate": "/v1/discover/schema/{source}/{event_type}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "source": {
+            "equalTo": "source"
+          },
+          "event_type": {
+            "equalTo": "event_type"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"org_id\": \"org_id\",\n  \"source\": \"stripe\",\n  \"event_type\": \"payment_intent.succeeded\",\n  \"version\": 1,\n  \"field_names\": [\n    \"field_names\"\n  ],\n  \"field_types\": [\n    \"field_types\"\n  ],\n  \"sample_event\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6c156087-4cd9-4d51-b6e6-3abb9bf1e65a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1f15570c-e9e1-4b71-b016-7b12b4c62d07",
+      "name": "Attach an entity reference to an event - default",
+      "request": {
+        "urlPathTemplate": "/v1/entity-refs",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": \"ok\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1f15570c-e9e1-4b71-b016-7b12b4c62d07",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "aef41370-0864-4ae4-af7b-97c4328c77c5",
+      "name": "Link two events - default",
+      "request": {
+        "urlPathTemplate": "/v1/event-links",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"link_id\": \"link_id\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "aef41370-0864-4ae4-af7b-97c4328c77c5",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "90d7fa7d-5152-4b5b-88f6-f4b63301215a",
+      "name": "Link all events of one entity to another entity - default",
+      "request": {
+        "urlPathTemplate": "/v1/link-entity",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"linked_count\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "90d7fa7d-5152-4b5b-88f6-f4b63301215a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c713f480-9d46-4e03-b164-fabb2ea46216",
+      "name": "Traverse the event link graph - default",
+      "request": {
+        "urlPathTemplate": "/v1/graph",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"data\": [\n    {\n      \"event\": {\n        \"event_id\": \"evt_18C8B8D284059DAF4a74c7cc2a3a669d\",\n        \"org_id\": \"org_id\",\n        \"source\": \"stripe\",\n        \"topic\": \"payments\",\n        \"event_type\": \"payment_intent.succeeded\",\n        \"event_time\": \"2024-01-15T09:30:00Z\",\n        \"ingestion_time\": \"2024-01-15T09:30:00Z\",\n        \"media\": {\n          \"media_type\": \"image/jpeg\",\n          \"size_bytes\": 1000000\n        },\n        \"entity_refs\": [\n          {\n            \"entity_type\": \"customer\",\n            \"entity_id\": \"cust_123\"\n          }\n        ]\n      },\n      \"entity_refs\": [\n        {\n          \"event_id\": \"event_id\",\n          \"entity_type\": \"customer\",\n          \"entity_id\": \"cust_123\",\n          \"created_by\": \"ingestion\",\n          \"created_at\": \"2024-01-15T09:30:00Z\"\n        }\n      ],\n      \"search_distance\": 1.1\n    }\n  ],\n  \"next_cursor\": \"next_cursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c713f480-9d46-4e03-b164-fabb2ea46216",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "fbd199a2-e256-4ff8-b22e-f774c6ad93e9",
+      "name": "Identify an end user - default",
+      "request": {
+        "urlPathTemplate": "/v1/users/identify",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"accepted\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fbd199a2-e256-4ff8-b22e-f774c6ad93e9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5843d76d-22ec-4a11-9ad0-174ab4c54ed2",
+      "name": "Track signals - default",
+      "request": {
+        "urlPathTemplate": "/v1/signals/track",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"accepted\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5843d76d-22ec-4a11-9ad0-174ab4c54ed2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "88b81a70-05e9-4fed-b0b3-767a81f42ea1",
+      "name": "Track traces and spans - default",
+      "request": {
+        "urlPathTemplate": "/v1/traces/track",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"accepted\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "88b81a70-05e9-4fed-b0b3-767a81f42ea1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 17
+  }
+}
