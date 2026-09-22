@@ -551,9 +551,2267 @@
           }
         }
       }
+    },
+    {
+      "id": "fab62573-bc5e-40a0-a5de-7ad744334334",
+      "name": "List registered agents - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"capabilityTags\": [\n      \"capabilityTags\"\n    ],\n    \"category\": \"category\",\n    \"description\": \"description\",\n    \"environment\": \"environment\",\n    \"framework\": \"vercel-ai-sdk\",\n    \"lastDriftAt\": \"2024-01-15T09:30:00Z\",\n    \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n    \"latestVersion\": \"latestVersion\",\n    \"model\": {\n      \"label\": \"label\",\n      \"modelId\": \"modelId\",\n      \"provider\": \"provider\"\n    },\n    \"modelLabel\": \"modelLabel\",\n    \"name\": \"name\",\n    \"owner\": \"owner\",\n    \"personaSummary\": \"personaSummary\",\n    \"playgroundUrl\": \"playgroundUrl\",\n    \"purpose\": \"purpose\",\n    \"runbookUrl\": \"runbookUrl\",\n    \"successRate\": 1.1,\n    \"totalRuns\": 1,\n    \"versionCount\": 1\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fab62573-bc5e-40a0-a5de-7ad744334334",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "07b7b482-a040-4279-aa45-e9cab7e80674",
+      "name": "Search agent artifact hashes - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/hash-index",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"agentName\": \"agentName\",\n    \"artifactId\": \"artifactId\",\n    \"framework\": \"vercel-ai-sdk\",\n    \"hash\": \"hash\",\n    \"kind\": \"agent.root\",\n    \"observedAt\": \"2024-01-15T09:30:00Z\",\n    \"path\": \"path\",\n    \"preview\": \"preview\",\n    \"runId\": \"runId\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "07b7b482-a040-4279-aa45-e9cab7e80674",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "902758a2-d7ae-4cdd-8c95-50897a9d66e9",
+      "name": "Stream agent registry changes - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/subscribe",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "event: message\ndata: {\"key\":\"value\"}\n",
+        "headers": {
+          "Content-Type": "text/event-stream"
+        }
+      },
+      "uuid": "902758a2-d7ae-4cdd-8c95-50897a9d66e9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "3ca84ccd-9da7-446e-a103-09eb40b86598",
+      "name": "Update an agent - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/{name}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "name": {
+            "equalTo": "name"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"capabilityTags\": [\n    \"capabilityTags\"\n  ],\n  \"category\": \"category\",\n  \"description\": \"description\",\n  \"environment\": \"environment\",\n  \"framework\": \"vercel-ai-sdk\",\n  \"lastDriftAt\": \"2024-01-15T09:30:00Z\",\n  \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n  \"latestVersion\": \"latestVersion\",\n  \"model\": {\n    \"label\": \"label\",\n    \"modelId\": \"modelId\",\n    \"provider\": \"provider\"\n  },\n  \"modelLabel\": \"modelLabel\",\n  \"name\": \"name\",\n  \"owner\": \"owner\",\n  \"personaSummary\": \"personaSummary\",\n  \"playgroundUrl\": \"playgroundUrl\",\n  \"purpose\": \"purpose\",\n  \"runbookUrl\": \"runbookUrl\",\n  \"successRate\": 1.1,\n  \"totalRuns\": 1,\n  \"versionCount\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3ca84ccd-9da7-446e-a103-09eb40b86598",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "08b08427-c8fe-431d-a365-f7837de46b2d",
+      "name": "Get the latest agent snapshot - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/{name}/snapshot",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "name": {
+            "equalTo": "name"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hashIndex\": [\n    {\n      \"agentName\": \"agentName\",\n      \"artifactId\": \"artifactId\",\n      \"framework\": \"vercel-ai-sdk\",\n      \"hash\": \"hash\",\n      \"kind\": \"agent.root\",\n      \"observedAt\": \"2024-01-15T09:30:00Z\",\n      \"path\": \"path\",\n      \"preview\": \"preview\",\n      \"runId\": \"runId\"\n    }\n  ],\n  \"runs\": [\n    {\n      \"artifactId\": \"artifactId\",\n      \"callOptionsHash\": \"callOptionsHash\",\n      \"configHash\": \"configHash\",\n      \"durationMs\": 1,\n      \"error\": {\n        \"message\": \"message\"\n      },\n      \"finishedAt\": \"2024-01-15T09:30:00Z\",\n      \"inputHash\": \"inputHash\",\n      \"operation\": \"generate\",\n      \"preparedCall\": {\n        \"hash\": \"hash\"\n      },\n      \"runId\": \"runId\",\n      \"schemaVersion\": \"schemaVersion\",\n      \"startedAt\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"started\",\n      \"toolCalls\": [\n        {\n          \"callId\": \"callId\",\n          \"startedAt\": \"2024-01-15T09:30:00Z\",\n          \"status\": \"started\",\n          \"toolName\": \"toolName\"\n        }\n      ]\n    }\n  ],\n  \"summary\": {\n    \"capabilityTags\": [\n      \"capabilityTags\"\n    ],\n    \"category\": \"category\",\n    \"description\": \"description\",\n    \"environment\": \"environment\",\n    \"framework\": \"vercel-ai-sdk\",\n    \"lastDriftAt\": \"2024-01-15T09:30:00Z\",\n    \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n    \"latestVersion\": \"latestVersion\",\n    \"model\": {\n      \"label\": \"label\",\n      \"modelId\": \"modelId\",\n      \"provider\": \"provider\"\n    },\n    \"modelLabel\": \"modelLabel\",\n    \"name\": \"name\",\n    \"owner\": \"owner\",\n    \"personaSummary\": \"personaSummary\",\n    \"playgroundUrl\": \"playgroundUrl\",\n    \"purpose\": \"purpose\",\n    \"runbookUrl\": \"runbookUrl\",\n    \"successRate\": 1.1,\n    \"totalRuns\": 1,\n    \"versionCount\": 1\n  },\n  \"versions\": [\n    {\n      \"artifact\": {\n        \"artifactId\": \"artifactId\",\n        \"configHash\": \"configHash\",\n        \"framework\": \"vercel-ai-sdk\",\n        \"model\": {\n          \"label\": \"label\"\n        },\n        \"name\": \"name\",\n        \"provenance\": {\n          \"createdAt\": \"2024-01-15T09:30:00Z\"\n        },\n        \"schemaVersion\": \"schemaVersion\",\n        \"tools\": [\n          {\n            \"name\": \"name\"\n          }\n        ],\n        \"version\": \"version\"\n      },\n      \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n      \"meanDurationMs\": 1,\n      \"p95DurationMs\": 1,\n      \"resolvedModelIds\": [\n        \"resolvedModelIds\"\n      ],\n      \"runCount\": 1,\n      \"status\": \"current\",\n      \"successRate\": 1.1,\n      \"totalTokens\": 1\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "08b08427-c8fe-431d-a365-f7837de46b2d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "54a51f8c-7900-4395-93a3-5b4716fcbc86",
+      "name": "Pin the latest version of an agent - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/{name}/pin-latest",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "name": {
+            "equalTo": "name"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"capabilityTags\": [\n    \"capabilityTags\"\n  ],\n  \"category\": \"category\",\n  \"description\": \"description\",\n  \"environment\": \"environment\",\n  \"framework\": \"vercel-ai-sdk\",\n  \"lastDriftAt\": \"2024-01-15T09:30:00Z\",\n  \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n  \"latestVersion\": \"latestVersion\",\n  \"model\": {\n    \"label\": \"label\",\n    \"modelId\": \"modelId\",\n    \"provider\": \"provider\"\n  },\n  \"modelLabel\": \"modelLabel\",\n  \"name\": \"name\",\n  \"owner\": \"owner\",\n  \"personaSummary\": \"personaSummary\",\n  \"playgroundUrl\": \"playgroundUrl\",\n  \"purpose\": \"purpose\",\n  \"runbookUrl\": \"runbookUrl\",\n  \"successRate\": 1.1,\n  \"totalRuns\": 1,\n  \"versionCount\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "54a51f8c-7900-4395-93a3-5b4716fcbc86",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d7b22054-3e24-4ac6-ac19-6a0177d13681",
+      "name": "Create a live agent chat session - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/{name}/chat/sessions",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "name": {
+            "equalTo": "name"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"session\": {\n    \"agentName\": \"agentName\",\n    \"agentVersion\": \"agentVersion\",\n    \"artifactId\": \"artifactId\",\n    \"messages\": [\n      {\n        \"messageId\": \"messageId\",\n        \"occurredAt\": \"2024-01-15T09:30:00Z\",\n        \"role\": \"user\",\n        \"text\": \"text\"\n      }\n    ],\n    \"runId\": \"runId\",\n    \"sessionId\": \"sessionId\",\n    \"startedAt\": \"2024-01-15T09:30:00Z\",\n    \"traceId\": \"traceId\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d7b22054-3e24-4ac6-ac19-6a0177d13681",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "fa41da31-2648-4c0a-ab71-6a18115c2223",
+      "name": "Get an agent chat session - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/{name}/chat/sessions/{session_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "name": {
+            "equalTo": "name"
+          },
+          "session_id": {
+            "equalTo": "session_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"agentName\": \"agentName\",\n  \"agentVersion\": \"agentVersion\",\n  \"artifactId\": \"artifactId\",\n  \"messages\": [\n    {\n      \"error\": \"error\",\n      \"eventIds\": [\n        \"eventIds\"\n      ],\n      \"messageId\": \"messageId\",\n      \"occurredAt\": \"2024-01-15T09:30:00Z\",\n      \"role\": \"user\",\n      \"steps\": [\n        {\n          \"eventType\": \"eventType\",\n          \"source\": \"source\",\n          \"stepId\": \"stepId\",\n          \"text\": \"text\",\n          \"toolName\": \"toolName\"\n        }\n      ],\n      \"text\": \"text\"\n    }\n  ],\n  \"runId\": \"runId\",\n  \"sessionId\": \"sessionId\",\n  \"startedAt\": \"2024-01-15T09:30:00Z\",\n  \"traceId\": \"traceId\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fa41da31-2648-4c0a-ab71-6a18115c2223",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "add034d5-2f8a-4eaf-a561-f82d77559a24",
+      "name": "Send a message to an agent chat session - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/{name}/chat/sessions/{session_id}/messages",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "name": {
+            "equalTo": "name"
+          },
+          "session_id": {
+            "equalTo": "session_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"session\": {\n    \"agentName\": \"agentName\",\n    \"agentVersion\": \"agentVersion\",\n    \"artifactId\": \"artifactId\",\n    \"messages\": [\n      {\n        \"messageId\": \"messageId\",\n        \"occurredAt\": \"2024-01-15T09:30:00Z\",\n        \"role\": \"user\",\n        \"text\": \"text\"\n      }\n    ],\n    \"runId\": \"runId\",\n    \"sessionId\": \"sessionId\",\n    \"startedAt\": \"2024-01-15T09:30:00Z\",\n    \"traceId\": \"traceId\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "add034d5-2f8a-4eaf-a561-f82d77559a24",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5622b2ca-cd0c-40d6-a815-8989e7c78bb1",
+      "name": "Register an agent artifact version - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/register",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"artifact\": {\n    \"artifactId\": \"artifactId\",\n    \"configHash\": \"configHash\",\n    \"description\": \"description\",\n    \"framework\": \"vercel-ai-sdk\",\n    \"inputContractPreview\": {\n      \"example\": {\n        \"key\": \"value\"\n      },\n      \"schemaSummary\": \"schemaSummary\"\n    },\n    \"instructions\": \"instructions\",\n    \"instructionsHash\": \"instructionsHash\",\n    \"knowledgeSources\": [\n      {\n        \"id\": \"id\",\n        \"kind\": \"vector\",\n        \"label\": \"label\"\n      }\n    ],\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"model\": {\n      \"label\": \"label\",\n      \"modelId\": \"modelId\",\n      \"provider\": \"provider\"\n    },\n    \"name\": \"name\",\n    \"outputContractPreview\": {\n      \"example\": {\n        \"key\": \"value\"\n      },\n      \"schemaSummary\": \"schemaSummary\"\n    },\n    \"policy\": {\n      \"allowedTools\": [\n        \"allowedTools\"\n      ],\n      \"approvalRequired\": [\n        \"approvalRequired\"\n      ],\n      \"maxSteps\": 1,\n      \"metadata\": {\n        \"key\": \"value\"\n      }\n    },\n    \"provenance\": {\n      \"aiSdkVersion\": \"aiSdkVersion\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"dependencyLockHash\": \"dependencyLockHash\",\n      \"frameworkVersion\": \"frameworkVersion\",\n      \"gitSha\": \"gitSha\",\n      \"publishedBy\": \"publishedBy\"\n    },\n    \"providerOptions\": {\n      \"key\": \"value\"\n    },\n    \"providerOptionsHash\": \"providerOptionsHash\",\n    \"schemaVersion\": \"schemaVersion\",\n    \"tools\": [\n      {\n        \"name\": \"name\"\n      }\n    ],\n    \"version\": \"version\",\n    \"workflowGraphPreview\": {\n      \"edges\": [\n        {\n          \"from\": \"from\",\n          \"to\": \"to\"\n        }\n      ],\n      \"nodes\": [\n        {\n          \"id\": \"id\",\n          \"kind\": \"input\",\n          \"label\": \"label\"\n        }\n      ]\n    }\n  },\n  \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n  \"meanDurationMs\": 1,\n  \"p95DurationMs\": 1,\n  \"resolvedModelIds\": [\n    \"resolvedModelIds\"\n  ],\n  \"runCount\": 1,\n  \"status\": \"current\",\n  \"successRate\": 1.1,\n  \"totalTokens\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5622b2ca-cd0c-40d6-a815-8989e7c78bb1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a6874685-74ad-4d2b-b558-1f36b8c0c260",
+      "name": "Record a batch of agent runs - default",
+      "request": {
+        "urlPathTemplate": "/v1/agents/runs/batch",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"accepted\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a6874685-74ad-4d2b-b558-1f36b8c0c260",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "297242fa-1e36-48dc-b87e-d348b96204c2",
+      "name": "List task suites - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"items\": [\n    {\n      \"archivedAt\": \"2024-01-15T09:30:00Z\",\n      \"createdBy\": \"createdBy\",\n      \"description\": \"description\",\n      \"eventCount\": 1,\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"purpose\": \"eval\",\n      \"tags\": [\n        \"tags\"\n      ],\n      \"traceCount\": 1,\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "297242fa-1e36-48dc-b87e-d348b96204c2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "a0d8927c-158a-47aa-b2c9-9343f02a9578",
+      "name": "Create a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"archivedAt\": \"2024-01-15T09:30:00Z\",\n  \"createdBy\": \"createdBy\",\n  \"description\": \"description\",\n  \"eventCount\": 1,\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"purpose\": \"eval\",\n  \"tags\": [\n    \"tags\"\n  ],\n  \"traceCount\": 1,\n  \"updatedAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a0d8927c-158a-47aa-b2c9-9343f02a9578",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "82051b90-9efd-4da2-811e-fa00d71c8277",
+      "name": "Create a task suite and add its first trace atomically - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/with-trace",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"dataset\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"description\": \"description\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"purpose\": \"eval\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"traceCount\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"membership\": {\n    \"addedAt\": \"addedAt\",\n    \"datasetId\": \"datasetId\",\n    \"datasetName\": \"datasetName\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"note\": \"note\",\n    \"purpose\": \"eval\",\n    \"refreshAvailable\": true,\n    \"revision\": 1,\n    \"split\": \"train\",\n    \"subjectId\": \"subjectId\",\n    \"subjectKind\": \"trace\",\n    \"traceId\": \"traceId\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "82051b90-9efd-4da2-811e-fa00d71c8277",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "414e42bd-ecbf-4fa3-89a9-e97d73928c64",
+      "name": "Get a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"clusters\": [\n    {\n      \"color\": \"color\",\n      \"description\": \"description\",\n      \"id\": \"id\",\n      \"label\": \"label\",\n      \"similarityCenter\": [\n        1.1\n      ],\n      \"traceIds\": [\n        \"traceIds\"\n      ]\n    }\n  ],\n  \"dataset\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"description\": \"description\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"purpose\": \"eval\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"traceCount\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"edges\": [\n    {\n      \"fromTraceId\": \"fromTraceId\",\n      \"toTraceId\": \"toTraceId\",\n      \"weight\": 1.1\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "414e42bd-ecbf-4fa3-89a9-e97d73928c64",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "cda2211b-4870-48bc-b952-385d2e9111de",
+      "name": "Archive a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "cda2211b-4870-48bc-b952-385d2e9111de",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c2853184-edbb-414a-b5ba-4243e6016ec1",
+      "name": "Update a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"archivedAt\": \"2024-01-15T09:30:00Z\",\n  \"createdBy\": \"createdBy\",\n  \"description\": \"description\",\n  \"eventCount\": 1,\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"purpose\": \"eval\",\n  \"tags\": [\n    \"tags\"\n  ],\n  \"traceCount\": 1,\n  \"updatedAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c2853184-edbb-414a-b5ba-4243e6016ec1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "bcefecd7-8cbe-4a36-8caa-c39608821ccc",
+      "name": "Get the current immutable task-suite snapshot - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/snapshot",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"clusters\": [\n    {\n      \"color\": \"color\",\n      \"description\": \"description\",\n      \"id\": \"id\",\n      \"label\": \"label\",\n      \"similarityCenter\": [\n        1.1\n      ],\n      \"traceIds\": [\n        \"traceIds\"\n      ]\n    }\n  ],\n  \"dataset\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"description\": \"description\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"purpose\": \"eval\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"traceCount\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"edges\": [\n    {\n      \"fromTraceId\": \"fromTraceId\",\n      \"toTraceId\": \"toTraceId\",\n      \"weight\": 1.1\n    }\n  ],\n  \"events\": [\n    {\n      \"actor\": \"actor\",\n      \"color\": \"color\",\n      \"correlationKey\": \"correlationKey\",\n      \"id\": \"id\",\n      \"message\": \"message\",\n      \"occurredAt\": \"2024-01-15T09:30:00Z\",\n      \"parentEventId\": \"parentEventId\",\n      \"payload\": {\n        \"key\": \"value\"\n      },\n      \"source\": \"source\",\n      \"stream\": \"stream\",\n      \"traceId\": \"traceId\",\n      \"traceLabel\": \"traceLabel\",\n      \"type\": \"type\"\n    }\n  ],\n  \"tasks\": [\n    {\n      \"membershipId\": \"membershipId\",\n      \"subjectKind\": \"trace\",\n      \"task\": {},\n      \"traceId\": \"traceId\",\n      \"verifiers\": [\n        {\n          \"id\": \"id\",\n          \"kind\": \"rubric\",\n          \"label\": \"label\",\n          \"source\": \"proposed\",\n          \"weight\": \"low\"\n        }\n      ]\n    }\n  ],\n  \"traces\": [\n    {\n      \"addedAt\": \"2024-01-15T09:30:00Z\",\n      \"addedBy\": \"addedBy\",\n      \"clusterId\": \"clusterId\",\n      \"durationMs\": 1,\n      \"embedding\": [\n        1.1\n      ],\n      \"eventCount\": 1,\n      \"label\": \"label\",\n      \"note\": \"note\",\n      \"primarySource\": \"primarySource\",\n      \"sources\": [\n        \"sources\"\n      ],\n      \"split\": \"train\",\n      \"startedAt\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"ok\",\n      \"traceId\": \"traceId\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bcefecd7-8cbe-4a36-8caa-c39608821ccc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "de6d7e94-2d35-4c8a-8b5f-f11cbbbcb28a",
+      "name": "List trace-backed tasks in a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/traces",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"items\": [\n    {\n      \"addedAt\": \"2024-01-15T09:30:00Z\",\n      \"addedBy\": \"addedBy\",\n      \"clusterId\": \"clusterId\",\n      \"durationMs\": 1,\n      \"embedding\": [\n        1.1\n      ],\n      \"eventCount\": 1,\n      \"label\": \"label\",\n      \"membershipId\": \"membershipId\",\n      \"note\": \"note\",\n      \"primarySource\": \"primarySource\",\n      \"refreshAvailable\": true,\n      \"revision\": 1,\n      \"sources\": [\n        \"sources\"\n      ],\n      \"split\": \"train\",\n      \"startedAt\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"ok\",\n      \"subjectId\": \"subjectId\",\n      \"subjectKind\": \"trace\",\n      \"traceId\": \"traceId\",\n      \"verifiers\": [\n        {\n          \"scorerId\": \"scorerId\"\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "de6d7e94-2d35-4c8a-8b5f-f11cbbbcb28a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2e717cd0-24a8-41c5-9c0f-d11130c93c39",
+      "name": "Add a trace-backed task to a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/traces",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"dataset\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"description\": \"description\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"purpose\": \"eval\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"traceCount\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"membership\": {\n    \"addedAt\": \"addedAt\",\n    \"datasetId\": \"datasetId\",\n    \"datasetName\": \"datasetName\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"note\": \"note\",\n    \"purpose\": \"eval\",\n    \"refreshAvailable\": true,\n    \"revision\": 1,\n    \"split\": \"train\",\n    \"subjectId\": \"subjectId\",\n    \"subjectKind\": \"trace\",\n    \"traceId\": \"traceId\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2e717cd0-24a8-41c5-9c0f-d11130c93c39",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "148f3397-eefd-4ce4-8abf-8d2ec2a8048b",
+      "name": "Update multiple trace-backed tasks - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/traces",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "148f3397-eefd-4ce4-8abf-8d2ec2a8048b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "21e7232a-690d-4a32-982b-f84e567c8f81",
+      "name": "Remove a trace-backed task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/traces/{membership_id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "21e7232a-690d-4a32-982b-f84e567c8f81",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f8f03ea6-023b-4255-b684-2ad49b4360b2",
+      "name": "Refresh a task from its source trace - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/traces/{membership_id}/refresh",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"addedAt\": \"addedAt\",\n  \"datasetId\": \"datasetId\",\n  \"datasetName\": \"datasetName\",\n  \"eventCount\": 1,\n  \"id\": \"id\",\n  \"note\": \"note\",\n  \"purpose\": \"eval\",\n  \"refreshAvailable\": true,\n  \"revision\": 1,\n  \"split\": \"train\",\n  \"subjectId\": \"subjectId\",\n  \"subjectKind\": \"trace\",\n  \"traceId\": \"traceId\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f8f03ea6-023b-4255-b684-2ad49b4360b2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "b0438b4a-f0ef-44f1-957a-4f7b6da9bde8",
+      "name": "List evidence events frozen into a task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/traces/{membership_id}/events",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"items\": [\n    {\n      \"actor\": \"actor\",\n      \"color\": \"color\",\n      \"correlationKey\": \"correlationKey\",\n      \"id\": \"id\",\n      \"message\": \"message\",\n      \"occurredAt\": \"2024-01-15T09:30:00Z\",\n      \"parentEventId\": \"parentEventId\",\n      \"payload\": {\n        \"key\": \"value\"\n      },\n      \"source\": \"source\",\n      \"stream\": \"stream\",\n      \"traceId\": \"traceId\",\n      \"traceLabel\": \"traceLabel\",\n      \"type\": \"type\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b0438b4a-f0ef-44f1-957a-4f7b6da9bde8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "deab2d78-7cea-4133-a26e-e35e8f5fca91",
+      "name": "List task-suite memberships for a trace - default",
+      "request": {
+        "urlPathTemplate": "/v1/traces/{trace_id}/task-suite-memberships",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "trace_id": {
+            "equalTo": "trace_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"addedAt\": \"addedAt\",\n    \"datasetId\": \"datasetId\",\n    \"datasetName\": \"datasetName\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"note\": \"note\",\n    \"purpose\": \"eval\",\n    \"refreshAvailable\": true,\n    \"revision\": 1,\n    \"split\": \"train\",\n    \"subjectId\": \"subjectId\",\n    \"subjectKind\": \"trace\",\n    \"traceId\": \"traceId\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "deab2d78-7cea-4133-a26e-e35e8f5fca91",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c038a71a-4bfe-475a-8efb-d97c8c39f018",
+      "name": "List tasks in a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"items\": [\n    {\n      \"addedAt\": \"2024-01-15T09:30:00Z\",\n      \"addedBy\": \"addedBy\",\n      \"clusterId\": \"clusterId\",\n      \"durationMs\": 1,\n      \"embedding\": [\n        1.1\n      ],\n      \"eventCount\": 1,\n      \"label\": \"label\",\n      \"membershipId\": \"membershipId\",\n      \"note\": \"note\",\n      \"primarySource\": \"primarySource\",\n      \"refreshAvailable\": true,\n      \"revision\": 1,\n      \"sources\": [\n        \"sources\"\n      ],\n      \"split\": \"train\",\n      \"startedAt\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"ok\",\n      \"subjectId\": \"subjectId\",\n      \"subjectKind\": \"trace\",\n      \"traceId\": \"traceId\",\n      \"verifiers\": [\n        {\n          \"scorerId\": \"scorerId\"\n        }\n      ]\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c038a71a-4bfe-475a-8efb-d97c8c39f018",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f133f6c3-5a02-481c-a267-755f82f7fdb0",
+      "name": "Create a task without a seed trace - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"addedAt\": \"2024-01-15T09:30:00Z\",\n  \"addedBy\": \"addedBy\",\n  \"clusterId\": \"clusterId\",\n  \"durationMs\": 1,\n  \"embedding\": [\n    1.1,\n    1.1\n  ],\n  \"eventCount\": 1,\n  \"label\": \"label\",\n  \"membershipId\": \"membershipId\",\n  \"note\": \"note\",\n  \"primarySource\": \"primarySource\",\n  \"refreshAvailable\": true,\n  \"revision\": 1,\n  \"sources\": [\n    \"sources\",\n    \"sources\"\n  ],\n  \"split\": \"train\",\n  \"startedAt\": \"2024-01-15T09:30:00Z\",\n  \"status\": \"ok\",\n  \"subjectId\": \"subjectId\",\n  \"subjectKind\": \"trace\",\n  \"task\": {\n    \"config\": {\n      \"agentTimeoutSec\": 1.1,\n      \"networkMode\": \"public\",\n      \"verifierTimeoutSec\": 1.1\n    },\n    \"environmentId\": \"environmentId\",\n    \"environmentVersionId\": \"environmentVersionId\",\n    \"expectedOutcome\": {\n      \"key\": \"value\"\n    },\n    \"instruction\": \"instruction\",\n    \"seedCutoffEventId\": \"seedCutoffEventId\",\n    \"solution\": \"solution\",\n    \"title\": \"title\"\n  },\n  \"traceId\": \"traceId\",\n  \"verifiers\": [\n    {\n      \"passThreshold\": 1.1,\n      \"scorerId\": \"scorerId\",\n      \"weight\": \"low\"\n    },\n    {\n      \"passThreshold\": 1.1,\n      \"scorerId\": \"scorerId\",\n      \"weight\": \"low\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f133f6c3-5a02-481c-a267-755f82f7fdb0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "678527af-859d-4e18-800f-6461ceb20ba8",
+      "name": "Get a task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks/{membership_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"addedAt\": \"2024-01-15T09:30:00Z\",\n  \"addedBy\": \"addedBy\",\n  \"clusterId\": \"clusterId\",\n  \"durationMs\": 1,\n  \"embedding\": [\n    1.1\n  ],\n  \"eventCount\": 1,\n  \"label\": \"label\",\n  \"membershipId\": \"membershipId\",\n  \"note\": \"note\",\n  \"primarySource\": \"primarySource\",\n  \"refreshAvailable\": true,\n  \"revision\": 1,\n  \"sources\": [\n    \"sources\"\n  ],\n  \"split\": \"train\",\n  \"startedAt\": \"2024-01-15T09:30:00Z\",\n  \"status\": \"ok\",\n  \"subjectId\": \"subjectId\",\n  \"subjectKind\": \"trace\",\n  \"task\": {\n    \"config\": {\n      \"agentTimeoutSec\": 1.1,\n      \"networkMode\": \"public\",\n      \"verifierTimeoutSec\": 1.1\n    },\n    \"environmentId\": \"environmentId\",\n    \"environmentVersionId\": \"environmentVersionId\",\n    \"expectedOutcome\": {\n      \"key\": \"value\"\n    },\n    \"instruction\": \"instruction\",\n    \"seedCutoffEventId\": \"seedCutoffEventId\",\n    \"solution\": \"solution\",\n    \"title\": \"title\"\n  },\n  \"traceId\": \"traceId\",\n  \"verifiers\": [\n    {\n      \"passThreshold\": 1.1,\n      \"scorerId\": \"scorerId\",\n      \"weight\": \"low\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "678527af-859d-4e18-800f-6461ceb20ba8",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2fd74fa4-9f9e-4678-8dab-3389b6ac4ca0",
+      "name": "Remove a task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks/{membership_id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2fd74fa4-9f9e-4678-8dab-3389b6ac4ca0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "fe9b27c2-4146-41b0-8c4d-6885dad37cdb",
+      "name": "Update a task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks/{membership_id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"addedAt\": \"2024-01-15T09:30:00Z\",\n  \"addedBy\": \"addedBy\",\n  \"clusterId\": \"clusterId\",\n  \"durationMs\": 1,\n  \"embedding\": [\n    1.1,\n    1.1\n  ],\n  \"eventCount\": 1,\n  \"label\": \"label\",\n  \"membershipId\": \"membershipId\",\n  \"note\": \"note\",\n  \"primarySource\": \"primarySource\",\n  \"refreshAvailable\": true,\n  \"revision\": 1,\n  \"sources\": [\n    \"sources\",\n    \"sources\"\n  ],\n  \"split\": \"train\",\n  \"startedAt\": \"2024-01-15T09:30:00Z\",\n  \"status\": \"ok\",\n  \"subjectId\": \"subjectId\",\n  \"subjectKind\": \"trace\",\n  \"task\": {\n    \"config\": {\n      \"agentTimeoutSec\": 1.1,\n      \"networkMode\": \"public\",\n      \"verifierTimeoutSec\": 1.1\n    },\n    \"environmentId\": \"environmentId\",\n    \"environmentVersionId\": \"environmentVersionId\",\n    \"expectedOutcome\": {\n      \"key\": \"value\"\n    },\n    \"instruction\": \"instruction\",\n    \"seedCutoffEventId\": \"seedCutoffEventId\",\n    \"solution\": \"solution\",\n    \"title\": \"title\"\n  },\n  \"traceId\": \"traceId\",\n  \"verifiers\": [\n    {\n      \"passThreshold\": 1.1,\n      \"scorerId\": \"scorerId\",\n      \"weight\": \"low\"\n    },\n    {\n      \"passThreshold\": 1.1,\n      \"scorerId\": \"scorerId\",\n      \"weight\": \"low\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fe9b27c2-4146-41b0-8c4d-6885dad37cdb",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d4a789a7-5e49-4615-a3a8-54d914085b17",
+      "name": "Replace the verifiers attached to a task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks/{membership_id}/verifiers",
+        "method": "PUT",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"addedAt\": \"2024-01-15T09:30:00Z\",\n  \"addedBy\": \"addedBy\",\n  \"clusterId\": \"clusterId\",\n  \"durationMs\": 1,\n  \"embedding\": [\n    1.1\n  ],\n  \"eventCount\": 1,\n  \"label\": \"label\",\n  \"membershipId\": \"membershipId\",\n  \"note\": \"note\",\n  \"primarySource\": \"primarySource\",\n  \"refreshAvailable\": true,\n  \"revision\": 1,\n  \"sources\": [\n    \"sources\"\n  ],\n  \"split\": \"train\",\n  \"startedAt\": \"2024-01-15T09:30:00Z\",\n  \"status\": \"ok\",\n  \"subjectId\": \"subjectId\",\n  \"subjectKind\": \"trace\",\n  \"task\": {\n    \"config\": {\n      \"agentTimeoutSec\": 1.1,\n      \"networkMode\": \"public\",\n      \"verifierTimeoutSec\": 1.1\n    },\n    \"environmentId\": \"environmentId\",\n    \"environmentVersionId\": \"environmentVersionId\",\n    \"expectedOutcome\": {\n      \"key\": \"value\"\n    },\n    \"instruction\": \"instruction\",\n    \"seedCutoffEventId\": \"seedCutoffEventId\",\n    \"solution\": \"solution\",\n    \"title\": \"title\"\n  },\n  \"traceId\": \"traceId\",\n  \"verifiers\": [\n    {\n      \"passThreshold\": 1.1,\n      \"scorerId\": \"scorerId\",\n      \"weight\": \"low\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d4a789a7-5e49-4615-a3a8-54d914085b17",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6a8dc1ff-73bc-4fd8-8fb6-10b1fd2d05dc",
+      "name": "List evidence events for a task - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks/{membership_id}/events",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"items\": [\n    {\n      \"actor\": \"actor\",\n      \"color\": \"color\",\n      \"correlationKey\": \"correlationKey\",\n      \"id\": \"id\",\n      \"message\": \"message\",\n      \"occurredAt\": \"2024-01-15T09:30:00Z\",\n      \"parentEventId\": \"parentEventId\",\n      \"payload\": {\n        \"key\": \"value\"\n      },\n      \"source\": \"source\",\n      \"stream\": \"stream\",\n      \"traceId\": \"traceId\",\n      \"traceLabel\": \"traceLabel\",\n      \"type\": \"type\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6a8dc1ff-73bc-4fd8-8fb6-10b1fd2d05dc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f111f013-dca2-498e-af9a-6a94b4c1241b",
+      "name": "Refresh a task from its source trace - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/tasks/{membership_id}/refresh",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "membership_id": {
+            "equalTo": "membership_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"addedAt\": \"addedAt\",\n  \"datasetId\": \"datasetId\",\n  \"datasetName\": \"datasetName\",\n  \"eventCount\": 1,\n  \"id\": \"id\",\n  \"note\": \"note\",\n  \"purpose\": \"eval\",\n  \"refreshAvailable\": true,\n  \"revision\": 1,\n  \"split\": \"train\",\n  \"subjectId\": \"subjectId\",\n  \"subjectKind\": \"trace\",\n  \"traceId\": \"traceId\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f111f013-dca2-498e-af9a-6a94b4c1241b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "418ee9db-9911-43d9-a824-5361153a6d53",
+      "name": "List task clusters - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/clusters",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"color\": \"color\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"label\": \"label\",\n    \"similarityCenter\": [\n      1.1\n    ],\n    \"traceIds\": [\n      \"traceIds\"\n    ]\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "418ee9db-9911-43d9-a824-5361153a6d53",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "854b55c2-9f64-4779-813c-78522e9a253b",
+      "name": "Create a task cluster - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/clusters",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"color\": \"color\",\n  \"description\": \"description\",\n  \"id\": \"id\",\n  \"label\": \"label\",\n  \"similarityCenter\": [\n    1.1\n  ],\n  \"traceIds\": [\n    \"traceIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "854b55c2-9f64-4779-813c-78522e9a253b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d7c1a587-8463-452e-9a64-82055244acd0",
+      "name": "Delete a task cluster - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/clusters/{cluster_id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "cluster_id": {
+            "equalTo": "cluster_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d7c1a587-8463-452e-9a64-82055244acd0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f70c285b-4e44-4bd3-8949-d8c2ba89534d",
+      "name": "Update a task cluster - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/clusters/{cluster_id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "cluster_id": {
+            "equalTo": "cluster_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"color\": \"color\",\n  \"description\": \"description\",\n  \"id\": \"id\",\n  \"label\": \"label\",\n  \"similarityCenter\": [\n    1.1\n  ],\n  \"traceIds\": [\n    \"traceIds\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f70c285b-4e44-4bd3-8949-d8c2ba89534d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "066ae74d-2317-4fda-bc12-dd1f6023ce3c",
+      "name": "List saved task-suite views - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/saved-views",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"createdBy\": \"createdBy\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"scope\": \"personal\",\n    \"shortcut\": \"shortcut\",\n    \"state\": {\n      \"density\": \"density\",\n      \"displayProperties\": [\n        \"displayProperties\"\n      ],\n      \"groupBy\": \"groupBy\",\n      \"lens\": \"lens\",\n      \"ordering\": \"ordering\",\n      \"search\": \"search\",\n      \"showEmptyGroups\": true,\n      \"sorting\": [\n        {\n          \"desc\": true,\n          \"id\": \"id\"\n        }\n      ]\n    },\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "066ae74d-2317-4fda-bc12-dd1f6023ce3c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a10808d2-d55e-4958-9d8c-93d7a39613de",
+      "name": "Create a saved task-suite view - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/saved-views",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"createdBy\": \"createdBy\",\n  \"description\": \"description\",\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"scope\": \"personal\",\n  \"shortcut\": \"shortcut\",\n  \"state\": {\n    \"density\": \"density\",\n    \"displayProperties\": [\n      \"displayProperties\"\n    ],\n    \"groupBy\": \"groupBy\",\n    \"lens\": \"lens\",\n    \"ordering\": \"ordering\",\n    \"search\": \"search\",\n    \"showEmptyGroups\": true,\n    \"sorting\": [\n      {\n        \"desc\": true,\n        \"id\": \"id\"\n      }\n    ]\n  },\n  \"updatedAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a10808d2-d55e-4958-9d8c-93d7a39613de",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c75df8fb-a16c-4cec-a799-a6a289c15f55",
+      "name": "Delete a saved task-suite view - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/saved-views/{view_id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "view_id": {
+            "equalTo": "view_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c75df8fb-a16c-4cec-a799-a6a289c15f55",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "86f01a27-6021-4cfd-be11-77fd099b17e6",
+      "name": "Update a saved task-suite view - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/saved-views/{view_id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "view_id": {
+            "equalTo": "view_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"createdBy\": \"createdBy\",\n  \"description\": \"description\",\n  \"id\": \"id\",\n  \"name\": \"name\",\n  \"scope\": \"personal\",\n  \"shortcut\": \"shortcut\",\n  \"state\": {\n    \"density\": \"density\",\n    \"displayProperties\": [\n      \"displayProperties\"\n    ],\n    \"groupBy\": \"groupBy\",\n    \"lens\": \"lens\",\n    \"ordering\": \"ordering\",\n    \"search\": \"search\",\n    \"showEmptyGroups\": true,\n    \"sorting\": [\n      {\n        \"desc\": true,\n        \"id\": \"id\"\n      }\n    ]\n  },\n  \"updatedAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "86f01a27-6021-4cfd-be11-77fd099b17e6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6573e4bd-ad62-4757-891a-a94203e7d709",
+      "name": "List published task-suite versions - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/versions",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"createdAt\": \"createdAt\",\n    \"createdBy\": \"createdBy\",\n    \"datasetId\": \"datasetId\",\n    \"datasetRevision\": 1000000,\n    \"description\": \"description\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"itemCount\": 1,\n    \"label\": \"label\",\n    \"version\": 1\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6573e4bd-ad62-4757-891a-a94203e7d709",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1ea2eb96-557c-4319-b66f-b16210a4dfed",
+      "name": "Publish an immutable task-suite version - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/versions",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"createdAt\": \"createdAt\",\n  \"createdBy\": \"createdBy\",\n  \"datasetId\": \"datasetId\",\n  \"datasetRevision\": 1000000,\n  \"description\": \"description\",\n  \"eventCount\": 1,\n  \"id\": \"id\",\n  \"itemCount\": 1,\n  \"label\": \"label\",\n  \"version\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1ea2eb96-557c-4319-b66f-b16210a4dfed",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "4bf74697-3f33-48d5-822c-a65a3259abb2",
+      "name": "Get an immutable task-suite version snapshot - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/versions/{version_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          },
+          "version_id": {
+            "equalTo": "version_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"clusters\": [\n    {\n      \"color\": \"color\",\n      \"description\": \"description\",\n      \"id\": \"id\",\n      \"label\": \"label\",\n      \"similarityCenter\": [\n        1.1\n      ],\n      \"traceIds\": [\n        \"traceIds\"\n      ]\n    }\n  ],\n  \"dataset\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"description\": \"description\",\n    \"eventCount\": 1,\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"purpose\": \"eval\",\n    \"tags\": [\n      \"tags\"\n    ],\n    \"traceCount\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"edges\": [\n    {\n      \"fromTraceId\": \"fromTraceId\",\n      \"toTraceId\": \"toTraceId\",\n      \"weight\": 1.1\n    }\n  ],\n  \"events\": [\n    {\n      \"actor\": \"actor\",\n      \"color\": \"color\",\n      \"correlationKey\": \"correlationKey\",\n      \"id\": \"id\",\n      \"message\": \"message\",\n      \"occurredAt\": \"2024-01-15T09:30:00Z\",\n      \"parentEventId\": \"parentEventId\",\n      \"payload\": {\n        \"key\": \"value\"\n      },\n      \"source\": \"source\",\n      \"stream\": \"stream\",\n      \"traceId\": \"traceId\",\n      \"traceLabel\": \"traceLabel\",\n      \"type\": \"type\"\n    }\n  ],\n  \"tasks\": [\n    {\n      \"membershipId\": \"membershipId\",\n      \"subjectKind\": \"trace\",\n      \"task\": {},\n      \"traceId\": \"traceId\",\n      \"verifiers\": [\n        {\n          \"id\": \"id\",\n          \"kind\": \"rubric\",\n          \"label\": \"label\",\n          \"source\": \"proposed\",\n          \"weight\": \"low\"\n        }\n      ]\n    }\n  ],\n  \"traces\": [\n    {\n      \"addedAt\": \"2024-01-15T09:30:00Z\",\n      \"addedBy\": \"addedBy\",\n      \"clusterId\": \"clusterId\",\n      \"durationMs\": 1,\n      \"embedding\": [\n        1.1\n      ],\n      \"eventCount\": 1,\n      \"label\": \"label\",\n      \"note\": \"note\",\n      \"primarySource\": \"primarySource\",\n      \"sources\": [\n        \"sources\"\n      ],\n      \"split\": \"train\",\n      \"startedAt\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"ok\",\n      \"traceId\": \"traceId\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4bf74697-3f33-48d5-822c-a65a3259abb2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "53b7f839-0798-4a59-899d-843819b0aef7",
+      "name": "List backtest evaluation evidence for a task suite - default",
+      "request": {
+        "urlPathTemplate": "/v1/task-suites/{dataset_id}/eval-runs",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "dataset_id": {
+            "equalTo": "dataset_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"agentLabel\": \"agentLabel\",\n    \"failedTraceIds\": [\n      \"failedTraceIds\"\n    ],\n    \"id\": \"id\",\n    \"note\": \"note\",\n    \"passRate\": 1.1,\n    \"startedAt\": \"2024-01-15T09:30:00Z\",\n    \"status\": \"passing\",\n    \"taskResults\": [\n      {\n        \"passed\": true,\n        \"traceId\": \"traceId\"\n      }\n    ],\n    \"totalCount\": 1\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "53b7f839-0798-4a59-899d-843819b0aef7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "370b6065-077f-4675-801f-0ab85ec5521c",
+      "name": "List environments and their versions - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"environments\": [\n    {\n      \"environment\": {\n        \"createdAt\": \"2024-01-15T09:30:00Z\",\n        \"id\": \"id\",\n        \"label\": \"label\",\n        \"slug\": \"slug\",\n        \"tenantId\": \"tenantId\"\n      },\n      \"versions\": [\n        {\n          \"createdAt\": \"2024-01-15T09:30:00Z\",\n          \"environmentId\": \"environmentId\",\n          \"id\": \"id\",\n          \"spec\": {\n            \"interception\": {}\n          },\n          \"status\": \"draft\",\n          \"tenantId\": \"tenantId\",\n          \"version\": \"version\"\n        }\n      ]\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "370b6065-077f-4675-801f-0ab85ec5521c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "5075ea19-5396-429f-ae26-8c9370ea0831",
+      "name": "Create an environment - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"environment\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"label\": \"label\",\n    \"slug\": \"slug\",\n    \"tenantId\": \"tenantId\"\n  },\n  \"versions\": [\n    {\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"environmentId\": \"environmentId\",\n      \"id\": \"id\",\n      \"spec\": {\n        \"interception\": {}\n      },\n      \"status\": \"draft\",\n      \"tenantId\": \"tenantId\",\n      \"version\": \"version\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5075ea19-5396-429f-ae26-8c9370ea0831",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "81154662-019c-418e-bcff-b3588d191712",
+      "name": "Get an environment by ID or slug - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments/{environment_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "environment_id": {
+            "equalTo": "environment_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"environment\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"label\": \"label\",\n    \"slug\": \"slug\",\n    \"tenantId\": \"tenantId\"\n  },\n  \"versions\": [\n    {\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"environmentId\": \"environmentId\",\n      \"id\": \"id\",\n      \"spec\": {\n        \"interception\": {}\n      },\n      \"status\": \"draft\",\n      \"tenantId\": \"tenantId\",\n      \"version\": \"version\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "81154662-019c-418e-bcff-b3588d191712",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7f4d6f52-a238-41f9-afca-7413466885c6",
+      "name": "List environment versions - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments/{environment_id}/versions",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "environment_id": {
+            "equalTo": "environment_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"environmentId\": \"environmentId\",\n    \"id\": \"id\",\n    \"spec\": {\n      \"interception\": {},\n      \"mcp\": [\n        {\n          \"name\": \"name\"\n        }\n      ],\n      \"services\": [\n        {\n          \"name\": \"name\"\n        }\n      ],\n      \"twins\": [\n        {\n          \"service\": \"service\"\n        }\n      ]\n    },\n    \"status\": \"draft\",\n    \"tenantId\": \"tenantId\",\n    \"version\": \"version\"\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7f4d6f52-a238-41f9-afca-7413466885c6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "50906ee0-e153-482e-95e9-4cd03a1dff80",
+      "name": "Create an environment version - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments/{environment_id}/versions",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "environment_id": {
+            "equalTo": "environment_id"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": "{\n  \"environment\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"label\": \"label\",\n    \"slug\": \"slug\",\n    \"tenantId\": \"tenantId\"\n  },\n  \"version\": {\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"environmentId\": \"environmentId\",\n    \"id\": \"id\",\n    \"spec\": {\n      \"interception\": {},\n      \"mcp\": [\n        {\n          \"name\": \"name\"\n        }\n      ],\n      \"services\": [\n        {\n          \"name\": \"name\"\n        }\n      ],\n      \"twins\": [\n        {\n          \"service\": \"service\"\n        }\n      ]\n    },\n    \"status\": \"draft\",\n    \"tenantId\": \"tenantId\",\n    \"version\": \"version\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "50906ee0-e153-482e-95e9-4cd03a1dff80",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "29a57190-f1ff-4df2-a184-92cc7d927c0a",
+      "name": "Get an environment version by ID or version label - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments/{environment_id}/versions/{version_selector}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "environment_id": {
+            "equalTo": "environment_id"
+          },
+          "version_selector": {
+            "equalTo": "version_selector"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"environment\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"label\": \"label\",\n    \"slug\": \"slug\",\n    \"tenantId\": \"tenantId\"\n  },\n  \"version\": {\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"environmentId\": \"environmentId\",\n    \"id\": \"id\",\n    \"spec\": {\n      \"interception\": {},\n      \"mcp\": [\n        {\n          \"name\": \"name\"\n        }\n      ],\n      \"services\": [\n        {\n          \"name\": \"name\"\n        }\n      ],\n      \"twins\": [\n        {\n          \"service\": \"service\"\n        }\n      ]\n    },\n    \"status\": \"draft\",\n    \"tenantId\": \"tenantId\",\n    \"version\": \"version\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "29a57190-f1ff-4df2-a184-92cc7d927c0a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "58509c2b-3a0a-4a5e-871e-fddfd8c44de7",
+      "name": "Compile a version into an executable environment bundle - default",
+      "request": {
+        "urlPathTemplate": "/v1/environments/{environment_id}/versions/{version_selector}/compile",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "environment_id": {
+            "equalTo": "environment_id"
+          },
+          "version_selector": {
+            "equalTo": "version_selector"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"environmentId\": \"environmentId\",\n  \"environmentSlug\": \"environmentSlug\",\n  \"versionId\": \"versionId\",\n  \"version\": \"version\",\n  \"tenantId\": \"tenantId\",\n  \"datasetSnapshotId\": \"datasetSnapshotId\",\n  \"scenarioId\": \"scenarioId\",\n  \"bundleId\": \"bundleId\",\n  \"sha256\": \"sha256\",\n  \"uri\": \"uri\",\n  \"packageUri\": \"packageUri\",\n  \"rootDir\": \"rootDir\",\n  \"sizeBytes\": 1000000,\n  \"warnings\": [\n    \"warnings\"\n  ],\n  \"files\": [\n    \"files\"\n  ],\n  \"manifest\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "58509c2b-3a0a-4a5e-871e-fddfd8c44de7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "caca590e-914e-42df-b90f-bf3b6d550f20",
+      "name": "Get the agents, datasets, and environments available to backtests - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/availability",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"agents\": [\n    {\n      \"capabilityTags\": [\n        \"capabilityTags\"\n      ],\n      \"category\": \"category\",\n      \"description\": \"description\",\n      \"environment\": \"environment\",\n      \"framework\": \"vercel-ai-sdk\",\n      \"lastDriftAt\": \"2024-01-15T09:30:00Z\",\n      \"lastRunAt\": \"2024-01-15T09:30:00Z\",\n      \"latestVersion\": \"latestVersion\",\n      \"model\": {\n        \"label\": \"label\"\n      },\n      \"modelLabel\": \"modelLabel\",\n      \"name\": \"name\",\n      \"owner\": \"owner\",\n      \"personaSummary\": \"personaSummary\",\n      \"playgroundUrl\": \"playgroundUrl\",\n      \"purpose\": \"purpose\",\n      \"runbookUrl\": \"runbookUrl\",\n      \"successRate\": 1.1,\n      \"totalRuns\": 1,\n      \"versionCount\": 1\n    }\n  ],\n  \"datasetSnapshots\": {\n    \"key\": {\n      \"clusters\": [\n        {\n          \"color\": \"color\",\n          \"id\": \"id\",\n          \"label\": \"label\",\n          \"traceIds\": [\n            \"traceIds\"\n          ]\n        }\n      ],\n      \"dataset\": {\n        \"id\": \"id\",\n        \"name\": \"name\",\n        \"traceCount\": 1\n      },\n      \"edges\": [\n        {\n          \"fromTraceId\": \"fromTraceId\",\n          \"toTraceId\": \"toTraceId\",\n          \"weight\": 1.1\n        }\n      ],\n      \"events\": [\n        {\n          \"id\": \"id\",\n          \"occurredAt\": \"2024-01-15T09:30:00Z\",\n          \"source\": \"source\",\n          \"type\": \"type\"\n        }\n      ],\n      \"tasks\": [\n        {\n          \"membershipId\": \"membershipId\",\n          \"subjectKind\": \"trace\",\n          \"task\": {},\n          \"traceId\": \"traceId\",\n          \"verifiers\": [\n            {\n              \"id\": \"id\",\n              \"kind\": \"rubric\",\n              \"label\": \"label\",\n              \"source\": \"proposed\",\n              \"weight\": \"low\"\n            }\n          ]\n        }\n      ],\n      \"traces\": [\n        {\n          \"durationMs\": 1,\n          \"eventCount\": 1,\n          \"label\": \"label\",\n          \"primarySource\": \"primarySource\",\n          \"sources\": [\n            \"sources\"\n          ],\n          \"startedAt\": \"2024-01-15T09:30:00Z\",\n          \"status\": \"ok\",\n          \"traceId\": \"traceId\"\n        }\n      ]\n    }\n  },\n  \"datasets\": [\n    {\n      \"archivedAt\": \"2024-01-15T09:30:00Z\",\n      \"createdBy\": \"createdBy\",\n      \"description\": \"description\",\n      \"eventCount\": 1,\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"purpose\": \"eval\",\n      \"tags\": [\n        \"tags\"\n      ],\n      \"traceCount\": 1,\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"environments\": [\n    {\n      \"ephemeral\": true,\n      \"id\": \"id\",\n      \"label\": \"label\",\n      \"snapshotId\": \"snapshotId\",\n      \"snapshotLabel\": \"snapshotLabel\",\n      \"status\": \"status\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "caca590e-914e-42df-b90f-bf3b6d550f20",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "3316a81f-5c44-418a-a282-54f47fc691db",
+      "name": "List backtest jobs - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"nextOffset\": 1,\n  \"runs\": [\n    {\n      \"agentIds\": [\n        \"agentIds\"\n      ],\n      \"datasetLabel\": \"datasetLabel\",\n      \"divergences\": 1,\n      \"environmentLabel\": \"environmentLabel\",\n      \"hue\": \"hue\",\n      \"id\": \"id\",\n      \"mode\": \"replay\",\n      \"name\": \"name\",\n      \"owner\": \"owner\",\n      \"scheduledFor\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"running\",\n      \"totalRuns\": 1,\n      \"updatedAt\": \"2024-01-15T09:30:00Z\",\n      \"verdict\": \"verdict\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3316a81f-5c44-418a-a282-54f47fc691db",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "e833b725-7239-4b4b-a998-36073f6c18c9",
+      "name": "Launch a long-running backtest job - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 202,
+        "body": "{\n  \"jobId\": \"jobId\",\n  \"run\": {\n    \"agentIds\": [\n      \"agentIds\"\n    ],\n    \"datasetLabel\": \"datasetLabel\",\n    \"divergences\": 1,\n    \"environmentLabel\": \"environmentLabel\",\n    \"hue\": \"hue\",\n    \"id\": \"id\",\n    \"mode\": \"replay\",\n    \"name\": \"name\",\n    \"owner\": \"owner\",\n    \"scheduledFor\": \"2024-01-15T09:30:00Z\",\n    \"status\": \"running\",\n    \"totalRuns\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"verdict\": \"verdict\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e833b725-7239-4b4b-a998-36073f6c18c9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "23745779-2cf8-42f6-8154-39f9ee1fb987",
+      "name": "Get a backtest job and its current status - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs/{job_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "job_id": {
+            "equalTo": "job_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"job\": {\n    \"completedTrials\": 1,\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"datasetId\": \"datasetId\",\n    \"datasetVersionId\": \"datasetVersionId\",\n    \"exceptionKind\": \"exceptionKind\",\n    \"failedTrials\": 1,\n    \"finishedAt\": \"2024-01-15T09:30:00Z\",\n    \"id\": \"id\",\n    \"mode\": \"replay\",\n    \"nConcurrent\": 1,\n    \"name\": \"name\",\n    \"recipe\": {\n      \"key\": \"value\"\n    },\n    \"retryConfig\": {\n      \"excludeExceptions\": [\n        \"excludeExceptions\"\n      ],\n      \"includeExceptions\": [\n        \"includeExceptions\"\n      ],\n      \"maxRetries\": 1,\n      \"maxWaitSec\": 1.1,\n      \"minWaitSec\": 1.1,\n      \"waitMultiplier\": 1.1\n    },\n    \"sandboxDriver\": \"docker\",\n    \"scheduledFor\": \"2024-01-15T09:30:00Z\",\n    \"startedAt\": \"2024-01-15T09:30:00Z\",\n    \"status\": \"pending\",\n    \"tenantId\": \"tenantId\",\n    \"totalTrials\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"verdict\": \"verdict\"\n  },\n  \"run\": {\n    \"agentIds\": [\n      \"agentIds\"\n    ],\n    \"datasetLabel\": \"datasetLabel\",\n    \"divergences\": 1,\n    \"environmentLabel\": \"environmentLabel\",\n    \"hue\": \"hue\",\n    \"id\": \"id\",\n    \"mode\": \"replay\",\n    \"name\": \"name\",\n    \"owner\": \"owner\",\n    \"scheduledFor\": \"2024-01-15T09:30:00Z\",\n    \"status\": \"running\",\n    \"totalRuns\": 1,\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"verdict\": \"verdict\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "23745779-2cf8-42f6-8154-39f9ee1fb987",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1bf26e34-7a54-41cb-be9d-0e1ceceb297c",
+      "name": "List trials and reward evidence for a backtest job - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs/{job_id}/trials",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "job_id": {
+            "equalTo": "job_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"hasMore\": true,\n  \"nextOffset\": 1,\n  \"rewards\": {\n    \"key\": {\n      \"key\": 1.1\n    }\n  },\n  \"trials\": [\n    {\n      \"agentId\": \"agentId\",\n      \"agentLabel\": \"agentLabel\",\n      \"attempt\": 1,\n      \"caseCluster\": \"caseCluster\",\n      \"caseId\": \"caseId\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"durationMs\": 1,\n      \"exception\": {\n        \"kind\": \"kind\",\n        \"message\": \"message\"\n      },\n      \"id\": \"id\",\n      \"instruction\": \"instruction\",\n      \"isBaseline\": true,\n      \"jobId\": \"jobId\",\n      \"sandboxId\": \"sandboxId\",\n      \"status\": \"pending\",\n      \"tenantId\": \"tenantId\",\n      \"timings\": {},\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1bf26e34-7a54-41cb-be9d-0e1ceceb297c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6366f370-c4d9-4581-a31e-d175f59f78df",
+      "name": "Get a trial with rewards, timeline steps, artifacts, and scorers - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs/{job_id}/trials/{trial_id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "job_id": {
+            "equalTo": "job_id"
+          },
+          "trial_id": {
+            "equalTo": "trial_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"artifacts\": [\n    {\n      \"contentType\": \"contentType\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"id\": \"id\",\n      \"kind\": \"agent-log\",\n      \"path\": \"path\",\n      \"sizeBytes\": 1000000,\n      \"trialId\": \"trialId\"\n    }\n  ],\n  \"rewards\": {\n    \"key\": 1.1\n  },\n  \"scorers\": [\n    {\n      \"grader\": {\n        \"id\": \"id\",\n        \"kind\": \"rubric\",\n        \"label\": \"label\",\n        \"source\": \"proposed\",\n        \"weight\": \"low\"\n      },\n      \"rewardKey\": \"rewardKey\"\n    }\n  ],\n  \"steps\": [\n    {\n      \"actor\": \"environment\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"endedAt\": \"2024-01-15T09:30:00Z\",\n      \"graderId\": \"graderId\",\n      \"id\": \"id\",\n      \"kind\": \"seed-event\",\n      \"ordinal\": 1,\n      \"payload\": {\n        \"key\": \"value\"\n      },\n      \"score\": 1.1,\n      \"startedAt\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"ok\",\n      \"title\": \"title\",\n      \"trialId\": \"trialId\"\n    }\n  ],\n  \"trial\": {\n    \"agentId\": \"agentId\",\n    \"agentLabel\": \"agentLabel\",\n    \"attempt\": 1,\n    \"caseCluster\": \"caseCluster\",\n    \"caseId\": \"caseId\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"durationMs\": 1,\n    \"exception\": {\n      \"kind\": \"kind\",\n      \"message\": \"message\"\n    },\n    \"id\": \"id\",\n    \"instruction\": \"instruction\",\n    \"isBaseline\": true,\n    \"jobId\": \"jobId\",\n    \"sandboxId\": \"sandboxId\",\n    \"status\": \"pending\",\n    \"tenantId\": \"tenantId\",\n    \"timings\": {\n      \"agentRunFinishedAt\": \"2024-01-15T09:30:00Z\",\n      \"agentRunStartedAt\": \"2024-01-15T09:30:00Z\",\n      \"agentSetupFinishedAt\": \"2024-01-15T09:30:00Z\",\n      \"agentSetupStartedAt\": \"2024-01-15T09:30:00Z\",\n      \"envSetupFinishedAt\": \"2024-01-15T09:30:00Z\",\n      \"envSetupStartedAt\": \"2024-01-15T09:30:00Z\",\n      \"verifierFinishedAt\": \"2024-01-15T09:30:00Z\",\n      \"verifierStartedAt\": \"2024-01-15T09:30:00Z\"\n    },\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6366f370-c4d9-4581-a31e-d175f59f78df",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "53947945-4748-4013-9926-34ddaae45ee1",
+      "name": "Request cancellation of a backtest job - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs/{job_id}/cancel",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "job_id": {
+            "equalTo": "job_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"aborted\": true,\n  \"jobId\": \"jobId\",\n  \"previousStatus\": \"pending\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "53947945-4748-4013-9926-34ddaae45ee1",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6db5a207-bb43-4a7a-aae4-766d9789743e",
+      "name": "Stream progress for a long-running backtest job - default",
+      "request": {
+        "urlPathTemplate": "/v1/backtests/jobs/{job_id}/stream",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "job_id": {
+            "equalTo": "job_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "event: message\ndata: {\"job_id\":\"job_id\",\"kind\":\"job-started\"}\n",
+        "headers": {
+          "Content-Type": "text/event-stream"
+        }
+      },
+      "uuid": "6db5a207-bb43-4a7a-aae4-766d9789743e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "dc202773-6634-4f64-bef9-449e4f42b71b",
+      "name": "List active SDK keys - default",
+      "request": {
+        "urlPathTemplate": "/v1/sdk-keys",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"keys\": [\n    {\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"id\": \"id\",\n      \"lastUsedAt\": \"2024-01-15T09:30:00Z\",\n      \"name\": \"name\",\n      \"prefix\": \"prefix\",\n      \"revokedAt\": \"2024-01-15T09:30:00Z\",\n      \"scopes\": [\n        \"scopes\"\n      ],\n      \"tenantId\": \"tenantId\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "dc202773-6634-4f64-bef9-449e4f42b71b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "c94136b7-a404-4ca7-b9df-28fac93e7c96",
+      "name": "Create an SDK key - default",
+      "request": {
+        "urlPathTemplate": "/v1/sdk-keys",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"createdAt\": \"2024-01-15T09:30:00Z\",\n  \"id\": \"id\",\n  \"lastUsedAt\": \"2024-01-15T09:30:00Z\",\n  \"name\": \"name\",\n  \"prefix\": \"prefix\",\n  \"revokedAt\": \"2024-01-15T09:30:00Z\",\n  \"scopes\": [\n    \"scopes\"\n  ],\n  \"tenantId\": \"tenantId\",\n  \"bearer\": \"bearer\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c94136b7-a404-4ca7-b9df-28fac93e7c96",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2145b420-643d-4230-8314-995641dd310a",
+      "name": "Revoke an SDK key - default",
+      "request": {
+        "urlPathTemplate": "/v1/sdk-keys/{key_id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "key_id": {
+            "equalTo": "key_id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2145b420-643d-4230-8314-995641dd310a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
     }
   ],
   "meta": {
-    "total": 17
+    "total": 80
   }
 }

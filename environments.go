@@ -2,12 +2,2713 @@
 
 package api
 
-// Environments defines all of the API environments.
-// These values can be used with the WithBaseURL
-// RequestOption to override the client's default environment,
-// if any.
-var Environments = struct {
-	Production string
-}{
-	Production: "https://api.chroniclelabs.ai",
+import (
+	json "encoding/json"
+	fmt "fmt"
+	internal "github.com/chronicle-labs-ai/chronicle-go/internal"
+	big "math/big"
+	time "time"
+)
+
+var (
+	compileEnvironmentRequestFieldEnvironmentID     = big.NewInt(1 << 0)
+	compileEnvironmentRequestFieldVersionSelector   = big.NewInt(1 << 1)
+	compileEnvironmentRequestFieldDatasetSnapshotID = big.NewInt(1 << 2)
+	compileEnvironmentRequestFieldScenarioID        = big.NewInt(1 << 3)
+)
+
+type CompileEnvironmentRequest struct {
+	// Environment ID or slug.
+	EnvironmentID string `json:"-" url:"-"`
+	// Environment-version ID or version label.
+	VersionSelector   string `json:"-" url:"-"`
+	DatasetSnapshotID string `json:"datasetSnapshotId" url:"-"`
+	ScenarioID        string `json:"scenarioId" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (c *CompileEnvironmentRequest) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentRequest) SetEnvironmentID(environmentID string) {
+	c.EnvironmentID = environmentID
+	c.require(compileEnvironmentRequestFieldEnvironmentID)
+}
+
+// SetVersionSelector sets the VersionSelector field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentRequest) SetVersionSelector(versionSelector string) {
+	c.VersionSelector = versionSelector
+	c.require(compileEnvironmentRequestFieldVersionSelector)
+}
+
+// SetDatasetSnapshotID sets the DatasetSnapshotID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentRequest) SetDatasetSnapshotID(datasetSnapshotID string) {
+	c.DatasetSnapshotID = datasetSnapshotID
+	c.require(compileEnvironmentRequestFieldDatasetSnapshotID)
+}
+
+// SetScenarioID sets the ScenarioID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentRequest) SetScenarioID(scenarioID string) {
+	c.ScenarioID = scenarioID
+	c.require(compileEnvironmentRequestFieldScenarioID)
+}
+
+func (c *CompileEnvironmentRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler CompileEnvironmentRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*c = CompileEnvironmentRequest(body)
+	return nil
+}
+
+func (c *CompileEnvironmentRequest) MarshalJSON() ([]byte, error) {
+	type embed CompileEnvironmentRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	createEnvironmentRequestFieldSlug        = big.NewInt(1 << 0)
+	createEnvironmentRequestFieldLabel       = big.NewInt(1 << 1)
+	createEnvironmentRequestFieldDescription = big.NewInt(1 << 2)
+)
+
+type CreateEnvironmentRequest struct {
+	Slug        string  `json:"slug" url:"-"`
+	Label       string  `json:"label" url:"-"`
+	Description *string `json:"description,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (c *CreateEnvironmentRequest) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetSlug sets the Slug field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentRequest) SetSlug(slug string) {
+	c.Slug = slug
+	c.require(createEnvironmentRequestFieldSlug)
+}
+
+// SetLabel sets the Label field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentRequest) SetLabel(label string) {
+	c.Label = label
+	c.require(createEnvironmentRequestFieldLabel)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentRequest) SetDescription(description *string) {
+	c.Description = description
+	c.require(createEnvironmentRequestFieldDescription)
+}
+
+func (c *CreateEnvironmentRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler CreateEnvironmentRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*c = CreateEnvironmentRequest(body)
+	return nil
+}
+
+func (c *CreateEnvironmentRequest) MarshalJSON() ([]byte, error) {
+	type embed CreateEnvironmentRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	createEnvironmentVersionRequestFieldEnvironmentID = big.NewInt(1 << 0)
+	createEnvironmentVersionRequestFieldVersion       = big.NewInt(1 << 1)
+	createEnvironmentVersionRequestFieldSpec          = big.NewInt(1 << 2)
+	createEnvironmentVersionRequestFieldStatus        = big.NewInt(1 << 3)
+)
+
+type CreateEnvironmentVersionRequest struct {
+	// Environment ID or slug.
+	EnvironmentID string                    `json:"-" url:"-"`
+	Version       string                    `json:"version" url:"-"`
+	Spec          *EnvironmentSpec          `json:"spec,omitempty" url:"-"`
+	Status        *EnvironmentVersionStatus `json:"status,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (c *CreateEnvironmentVersionRequest) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentVersionRequest) SetEnvironmentID(environmentID string) {
+	c.EnvironmentID = environmentID
+	c.require(createEnvironmentVersionRequestFieldEnvironmentID)
+}
+
+// SetVersion sets the Version field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentVersionRequest) SetVersion(version string) {
+	c.Version = version
+	c.require(createEnvironmentVersionRequestFieldVersion)
+}
+
+// SetSpec sets the Spec field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentVersionRequest) SetSpec(spec *EnvironmentSpec) {
+	c.Spec = spec
+	c.require(createEnvironmentVersionRequestFieldSpec)
+}
+
+// SetStatus sets the Status field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateEnvironmentVersionRequest) SetStatus(status *EnvironmentVersionStatus) {
+	c.Status = status
+	c.require(createEnvironmentVersionRequestFieldStatus)
+}
+
+func (c *CreateEnvironmentVersionRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler CreateEnvironmentVersionRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*c = CreateEnvironmentVersionRequest(body)
+	return nil
+}
+
+func (c *CreateEnvironmentVersionRequest) MarshalJSON() ([]byte, error) {
+	type embed CreateEnvironmentVersionRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	getEnvironmentRequestFieldEnvironmentID = big.NewInt(1 << 0)
+)
+
+type GetEnvironmentRequest struct {
+	// Environment ID or slug.
+	EnvironmentID string `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (g *GetEnvironmentRequest) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GetEnvironmentRequest) SetEnvironmentID(environmentID string) {
+	g.EnvironmentID = environmentID
+	g.require(getEnvironmentRequestFieldEnvironmentID)
+}
+
+var (
+	getEnvironmentVersionRequestFieldEnvironmentID   = big.NewInt(1 << 0)
+	getEnvironmentVersionRequestFieldVersionSelector = big.NewInt(1 << 1)
+)
+
+type GetEnvironmentVersionRequest struct {
+	// Environment ID or slug.
+	EnvironmentID string `json:"-" url:"-"`
+	// Environment-version ID or version label.
+	VersionSelector string `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (g *GetEnvironmentVersionRequest) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GetEnvironmentVersionRequest) SetEnvironmentID(environmentID string) {
+	g.EnvironmentID = environmentID
+	g.require(getEnvironmentVersionRequestFieldEnvironmentID)
+}
+
+// SetVersionSelector sets the VersionSelector field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GetEnvironmentVersionRequest) SetVersionSelector(versionSelector string) {
+	g.VersionSelector = versionSelector
+	g.require(getEnvironmentVersionRequestFieldVersionSelector)
+}
+
+var (
+	listEnvironmentVersionsRequestFieldEnvironmentID = big.NewInt(1 << 0)
+)
+
+type ListEnvironmentVersionsRequest struct {
+	// Environment ID or slug.
+	EnvironmentID string `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (l *ListEnvironmentVersionsRequest) require(field *big.Int) {
+	if l.explicitFields == nil {
+		l.explicitFields = big.NewInt(0)
+	}
+	l.explicitFields.Or(l.explicitFields, field)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListEnvironmentVersionsRequest) SetEnvironmentID(environmentID string) {
+	l.EnvironmentID = environmentID
+	l.require(listEnvironmentVersionsRequestFieldEnvironmentID)
+}
+
+var (
+	compileEnvironmentResponseFieldEnvironmentID     = big.NewInt(1 << 0)
+	compileEnvironmentResponseFieldEnvironmentSlug   = big.NewInt(1 << 1)
+	compileEnvironmentResponseFieldVersionID         = big.NewInt(1 << 2)
+	compileEnvironmentResponseFieldVersion           = big.NewInt(1 << 3)
+	compileEnvironmentResponseFieldTenantID          = big.NewInt(1 << 4)
+	compileEnvironmentResponseFieldDatasetSnapshotID = big.NewInt(1 << 5)
+	compileEnvironmentResponseFieldScenarioID        = big.NewInt(1 << 6)
+	compileEnvironmentResponseFieldBundleID          = big.NewInt(1 << 7)
+	compileEnvironmentResponseFieldSha256            = big.NewInt(1 << 8)
+	compileEnvironmentResponseFieldURI               = big.NewInt(1 << 9)
+	compileEnvironmentResponseFieldPackageURI        = big.NewInt(1 << 10)
+	compileEnvironmentResponseFieldRootDir           = big.NewInt(1 << 11)
+	compileEnvironmentResponseFieldSizeBytes         = big.NewInt(1 << 12)
+	compileEnvironmentResponseFieldWarnings          = big.NewInt(1 << 13)
+	compileEnvironmentResponseFieldFiles             = big.NewInt(1 << 14)
+	compileEnvironmentResponseFieldManifest          = big.NewInt(1 << 15)
+)
+
+type CompileEnvironmentResponse struct {
+	EnvironmentID     string         `json:"environmentId" url:"environmentId"`
+	EnvironmentSlug   string         `json:"environmentSlug" url:"environmentSlug"`
+	VersionID         string         `json:"versionId" url:"versionId"`
+	Version           string         `json:"version" url:"version"`
+	TenantID          string         `json:"tenantId" url:"tenantId"`
+	DatasetSnapshotID string         `json:"datasetSnapshotId" url:"datasetSnapshotId"`
+	ScenarioID        string         `json:"scenarioId" url:"scenarioId"`
+	BundleID          string         `json:"bundleId" url:"bundleId"`
+	Sha256            string         `json:"sha256" url:"sha256"`
+	URI               string         `json:"uri" url:"uri"`
+	PackageURI        string         `json:"packageUri" url:"packageUri"`
+	RootDir           string         `json:"rootDir" url:"rootDir"`
+	SizeBytes         int64          `json:"sizeBytes" url:"sizeBytes"`
+	Warnings          []string       `json:"warnings" url:"warnings"`
+	Files             []string       `json:"files" url:"files"`
+	Manifest          map[string]any `json:"manifest" url:"manifest"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *CompileEnvironmentResponse) GetEnvironmentID() string {
+	if c == nil {
+		return ""
+	}
+	return c.EnvironmentID
+}
+
+func (c *CompileEnvironmentResponse) GetEnvironmentSlug() string {
+	if c == nil {
+		return ""
+	}
+	return c.EnvironmentSlug
+}
+
+func (c *CompileEnvironmentResponse) GetVersionID() string {
+	if c == nil {
+		return ""
+	}
+	return c.VersionID
+}
+
+func (c *CompileEnvironmentResponse) GetVersion() string {
+	if c == nil {
+		return ""
+	}
+	return c.Version
+}
+
+func (c *CompileEnvironmentResponse) GetTenantID() string {
+	if c == nil {
+		return ""
+	}
+	return c.TenantID
+}
+
+func (c *CompileEnvironmentResponse) GetDatasetSnapshotID() string {
+	if c == nil {
+		return ""
+	}
+	return c.DatasetSnapshotID
+}
+
+func (c *CompileEnvironmentResponse) GetScenarioID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ScenarioID
+}
+
+func (c *CompileEnvironmentResponse) GetBundleID() string {
+	if c == nil {
+		return ""
+	}
+	return c.BundleID
+}
+
+func (c *CompileEnvironmentResponse) GetSha256() string {
+	if c == nil {
+		return ""
+	}
+	return c.Sha256
+}
+
+func (c *CompileEnvironmentResponse) GetURI() string {
+	if c == nil {
+		return ""
+	}
+	return c.URI
+}
+
+func (c *CompileEnvironmentResponse) GetPackageURI() string {
+	if c == nil {
+		return ""
+	}
+	return c.PackageURI
+}
+
+func (c *CompileEnvironmentResponse) GetRootDir() string {
+	if c == nil {
+		return ""
+	}
+	return c.RootDir
+}
+
+func (c *CompileEnvironmentResponse) GetSizeBytes() int64 {
+	if c == nil {
+		return 0
+	}
+	return c.SizeBytes
+}
+
+func (c *CompileEnvironmentResponse) GetWarnings() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Warnings
+}
+
+func (c *CompileEnvironmentResponse) GetFiles() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Files
+}
+
+func (c *CompileEnvironmentResponse) GetManifest() map[string]any {
+	if c == nil {
+		return nil
+	}
+	return c.Manifest
+}
+
+func (c *CompileEnvironmentResponse) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *CompileEnvironmentResponse) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetEnvironmentID(environmentID string) {
+	c.EnvironmentID = environmentID
+	c.require(compileEnvironmentResponseFieldEnvironmentID)
+}
+
+// SetEnvironmentSlug sets the EnvironmentSlug field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetEnvironmentSlug(environmentSlug string) {
+	c.EnvironmentSlug = environmentSlug
+	c.require(compileEnvironmentResponseFieldEnvironmentSlug)
+}
+
+// SetVersionID sets the VersionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetVersionID(versionID string) {
+	c.VersionID = versionID
+	c.require(compileEnvironmentResponseFieldVersionID)
+}
+
+// SetVersion sets the Version field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetVersion(version string) {
+	c.Version = version
+	c.require(compileEnvironmentResponseFieldVersion)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetTenantID(tenantID string) {
+	c.TenantID = tenantID
+	c.require(compileEnvironmentResponseFieldTenantID)
+}
+
+// SetDatasetSnapshotID sets the DatasetSnapshotID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetDatasetSnapshotID(datasetSnapshotID string) {
+	c.DatasetSnapshotID = datasetSnapshotID
+	c.require(compileEnvironmentResponseFieldDatasetSnapshotID)
+}
+
+// SetScenarioID sets the ScenarioID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetScenarioID(scenarioID string) {
+	c.ScenarioID = scenarioID
+	c.require(compileEnvironmentResponseFieldScenarioID)
+}
+
+// SetBundleID sets the BundleID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetBundleID(bundleID string) {
+	c.BundleID = bundleID
+	c.require(compileEnvironmentResponseFieldBundleID)
+}
+
+// SetSha256 sets the Sha256 field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetSha256(sha256 string) {
+	c.Sha256 = sha256
+	c.require(compileEnvironmentResponseFieldSha256)
+}
+
+// SetURI sets the URI field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetURI(uri string) {
+	c.URI = uri
+	c.require(compileEnvironmentResponseFieldURI)
+}
+
+// SetPackageURI sets the PackageURI field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetPackageURI(packageURI string) {
+	c.PackageURI = packageURI
+	c.require(compileEnvironmentResponseFieldPackageURI)
+}
+
+// SetRootDir sets the RootDir field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetRootDir(rootDir string) {
+	c.RootDir = rootDir
+	c.require(compileEnvironmentResponseFieldRootDir)
+}
+
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetSizeBytes(sizeBytes int64) {
+	c.SizeBytes = sizeBytes
+	c.require(compileEnvironmentResponseFieldSizeBytes)
+}
+
+// SetWarnings sets the Warnings field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetWarnings(warnings []string) {
+	c.Warnings = warnings
+	c.require(compileEnvironmentResponseFieldWarnings)
+}
+
+// SetFiles sets the Files field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetFiles(files []string) {
+	c.Files = files
+	c.require(compileEnvironmentResponseFieldFiles)
+}
+
+// SetManifest sets the Manifest field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CompileEnvironmentResponse) SetManifest(manifest map[string]any) {
+	c.Manifest = manifest
+	c.require(compileEnvironmentResponseFieldManifest)
+}
+
+func (c *CompileEnvironmentResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler CompileEnvironmentResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = CompileEnvironmentResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *CompileEnvironmentResponse) MarshalJSON() ([]byte, error) {
+	type embed CompileEnvironmentResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *CompileEnvironmentResponse) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	environmentRecordFieldArchivedAt  = big.NewInt(1 << 0)
+	environmentRecordFieldCreatedAt   = big.NewInt(1 << 1)
+	environmentRecordFieldDescription = big.NewInt(1 << 2)
+	environmentRecordFieldID          = big.NewInt(1 << 3)
+	environmentRecordFieldLabel       = big.NewInt(1 << 4)
+	environmentRecordFieldSlug        = big.NewInt(1 << 5)
+	environmentRecordFieldTenantID    = big.NewInt(1 << 6)
+)
+
+type EnvironmentRecord struct {
+	ArchivedAt  *time.Time `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	CreatedAt   time.Time  `json:"createdAt" url:"createdAt"`
+	Description *string    `json:"description,omitempty" url:"description,omitempty"`
+	ID          string     `json:"id" url:"id"`
+	Label       string     `json:"label" url:"label"`
+	Slug        string     `json:"slug" url:"slug"`
+	TenantID    string     `json:"tenantId" url:"tenantId"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentRecord) GetArchivedAt() *time.Time {
+	if e == nil {
+		return nil
+	}
+	return e.ArchivedAt
+}
+
+func (e *EnvironmentRecord) GetCreatedAt() time.Time {
+	if e == nil {
+		return time.Time{}
+	}
+	return e.CreatedAt
+}
+
+func (e *EnvironmentRecord) GetDescription() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Description
+}
+
+func (e *EnvironmentRecord) GetID() string {
+	if e == nil {
+		return ""
+	}
+	return e.ID
+}
+
+func (e *EnvironmentRecord) GetLabel() string {
+	if e == nil {
+		return ""
+	}
+	return e.Label
+}
+
+func (e *EnvironmentRecord) GetSlug() string {
+	if e == nil {
+		return ""
+	}
+	return e.Slug
+}
+
+func (e *EnvironmentRecord) GetTenantID() string {
+	if e == nil {
+		return ""
+	}
+	return e.TenantID
+}
+
+func (e *EnvironmentRecord) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentRecord) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetArchivedAt(archivedAt *time.Time) {
+	e.ArchivedAt = archivedAt
+	e.require(environmentRecordFieldArchivedAt)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetCreatedAt(createdAt time.Time) {
+	e.CreatedAt = createdAt
+	e.require(environmentRecordFieldCreatedAt)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetDescription(description *string) {
+	e.Description = description
+	e.require(environmentRecordFieldDescription)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetID(id string) {
+	e.ID = id
+	e.require(environmentRecordFieldID)
+}
+
+// SetLabel sets the Label field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetLabel(label string) {
+	e.Label = label
+	e.require(environmentRecordFieldLabel)
+}
+
+// SetSlug sets the Slug field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetSlug(slug string) {
+	e.Slug = slug
+	e.require(environmentRecordFieldSlug)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentRecord) SetTenantID(tenantID string) {
+	e.TenantID = tenantID
+	e.require(environmentRecordFieldTenantID)
+}
+
+func (e *EnvironmentRecord) UnmarshalJSON(data []byte) error {
+	type embed EnvironmentRecord
+	var unmarshaler = struct {
+		embed
+		ArchivedAt *internal.DateTime `json:"archivedAt,omitempty"`
+		CreatedAt  *internal.DateTime `json:"createdAt"`
+	}{
+		embed: embed(*e),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*e = EnvironmentRecord(unmarshaler.embed)
+	e.ArchivedAt = unmarshaler.ArchivedAt.TimePtr()
+	e.CreatedAt = unmarshaler.CreatedAt.Time()
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentRecord) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentRecord
+	var marshaler = struct {
+		embed
+		ArchivedAt *internal.DateTime `json:"archivedAt,omitempty"`
+		CreatedAt  *internal.DateTime `json:"createdAt"`
+	}{
+		embed:      embed(*e),
+		ArchivedAt: internal.NewOptionalDateTime(e.ArchivedAt),
+		CreatedAt:  internal.NewDateTime(e.CreatedAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentRecord) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentResponseFieldEnvironment = big.NewInt(1 << 0)
+	environmentResponseFieldVersions    = big.NewInt(1 << 1)
+)
+
+type EnvironmentResponse struct {
+	Environment *EnvironmentRecord          `json:"environment" url:"environment"`
+	Versions    []*EnvironmentVersionRecord `json:"versions" url:"versions"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentResponse) GetEnvironment() *EnvironmentRecord {
+	if e == nil {
+		return nil
+	}
+	return e.Environment
+}
+
+func (e *EnvironmentResponse) GetVersions() []*EnvironmentVersionRecord {
+	if e == nil {
+		return nil
+	}
+	return e.Versions
+}
+
+func (e *EnvironmentResponse) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentResponse) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetEnvironment sets the Environment field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentResponse) SetEnvironment(environment *EnvironmentRecord) {
+	e.Environment = environment
+	e.require(environmentResponseFieldEnvironment)
+}
+
+// SetVersions sets the Versions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentResponse) SetVersions(versions []*EnvironmentVersionRecord) {
+	e.Versions = versions
+	e.require(environmentResponseFieldVersions)
+}
+
+func (e *EnvironmentResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentResponse) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentResponse) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentSpecFieldDatastores   = big.NewInt(1 << 0)
+	environmentSpecFieldInterception = big.NewInt(1 << 1)
+	environmentSpecFieldMcp          = big.NewInt(1 << 2)
+	environmentSpecFieldServices     = big.NewInt(1 << 3)
+	environmentSpecFieldTwins        = big.NewInt(1 << 4)
+)
+
+type EnvironmentSpec struct {
+	Datastores   []any                          `json:"datastores,omitempty" url:"datastores,omitempty"`
+	Interception *EnvironmentSpecInterception   `json:"interception" url:"interception"`
+	Mcp          []*EnvironmentSpecMcpItem      `json:"mcp,omitempty" url:"mcp,omitempty"`
+	Services     []*EnvironmentSpecServicesItem `json:"services,omitempty" url:"services,omitempty"`
+	// Twins this environment wants running (`backend/twins` models), seeded from the environment's dataset when spun up.
+	Twins []*EnvironmentSpecTwinsItem `json:"twins,omitempty" url:"twins,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentSpec) GetDatastores() []any {
+	if e == nil {
+		return nil
+	}
+	return e.Datastores
+}
+
+func (e *EnvironmentSpec) GetInterception() *EnvironmentSpecInterception {
+	if e == nil {
+		return nil
+	}
+	return e.Interception
+}
+
+func (e *EnvironmentSpec) GetMcp() []*EnvironmentSpecMcpItem {
+	if e == nil {
+		return nil
+	}
+	return e.Mcp
+}
+
+func (e *EnvironmentSpec) GetServices() []*EnvironmentSpecServicesItem {
+	if e == nil {
+		return nil
+	}
+	return e.Services
+}
+
+func (e *EnvironmentSpec) GetTwins() []*EnvironmentSpecTwinsItem {
+	if e == nil {
+		return nil
+	}
+	return e.Twins
+}
+
+func (e *EnvironmentSpec) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentSpec) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetDatastores sets the Datastores field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpec) SetDatastores(datastores []any) {
+	e.Datastores = datastores
+	e.require(environmentSpecFieldDatastores)
+}
+
+// SetInterception sets the Interception field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpec) SetInterception(interception *EnvironmentSpecInterception) {
+	e.Interception = interception
+	e.require(environmentSpecFieldInterception)
+}
+
+// SetMcp sets the Mcp field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpec) SetMcp(mcp []*EnvironmentSpecMcpItem) {
+	e.Mcp = mcp
+	e.require(environmentSpecFieldMcp)
+}
+
+// SetServices sets the Services field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpec) SetServices(services []*EnvironmentSpecServicesItem) {
+	e.Services = services
+	e.require(environmentSpecFieldServices)
+}
+
+// SetTwins sets the Twins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpec) SetTwins(twins []*EnvironmentSpecTwinsItem) {
+	e.Twins = twins
+	e.require(environmentSpecFieldTwins)
+}
+
+func (e *EnvironmentSpec) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentSpec
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentSpec(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentSpec) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentSpec
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentSpec) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentSpecInterceptionFieldInstallCa            = big.NewInt(1 << 0)
+	environmentSpecInterceptionFieldRegularProxyPort     = big.NewInt(1 << 1)
+	environmentSpecInterceptionFieldTransparentProxyPort = big.NewInt(1 << 2)
+)
+
+type EnvironmentSpecInterception struct {
+	InstallCa            *bool `json:"installCa,omitempty" url:"installCa,omitempty"`
+	RegularProxyPort     *int  `json:"regularProxyPort,omitempty" url:"regularProxyPort,omitempty"`
+	TransparentProxyPort *int  `json:"transparentProxyPort,omitempty" url:"transparentProxyPort,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentSpecInterception) GetInstallCa() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.InstallCa
+}
+
+func (e *EnvironmentSpecInterception) GetRegularProxyPort() *int {
+	if e == nil {
+		return nil
+	}
+	return e.RegularProxyPort
+}
+
+func (e *EnvironmentSpecInterception) GetTransparentProxyPort() *int {
+	if e == nil {
+		return nil
+	}
+	return e.TransparentProxyPort
+}
+
+func (e *EnvironmentSpecInterception) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentSpecInterception) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetInstallCa sets the InstallCa field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecInterception) SetInstallCa(installCa *bool) {
+	e.InstallCa = installCa
+	e.require(environmentSpecInterceptionFieldInstallCa)
+}
+
+// SetRegularProxyPort sets the RegularProxyPort field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecInterception) SetRegularProxyPort(regularProxyPort *int) {
+	e.RegularProxyPort = regularProxyPort
+	e.require(environmentSpecInterceptionFieldRegularProxyPort)
+}
+
+// SetTransparentProxyPort sets the TransparentProxyPort field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecInterception) SetTransparentProxyPort(transparentProxyPort *int) {
+	e.TransparentProxyPort = transparentProxyPort
+	e.require(environmentSpecInterceptionFieldTransparentProxyPort)
+}
+
+func (e *EnvironmentSpecInterception) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentSpecInterception
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentSpecInterception(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentSpecInterception) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentSpecInterception
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentSpecInterception) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentSpecMcpItemFieldCommand   = big.NewInt(1 << 0)
+	environmentSpecMcpItemFieldName      = big.NewInt(1 << 1)
+	environmentSpecMcpItemFieldTransport = big.NewInt(1 << 2)
+	environmentSpecMcpItemFieldURL       = big.NewInt(1 << 3)
+)
+
+type EnvironmentSpecMcpItem struct {
+	Command   *string `json:"command,omitempty" url:"command,omitempty"`
+	Name      string  `json:"name" url:"name"`
+	Transport *string `json:"transport,omitempty" url:"transport,omitempty"`
+	URL       *string `json:"url,omitempty" url:"url,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentSpecMcpItem) GetCommand() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Command
+}
+
+func (e *EnvironmentSpecMcpItem) GetName() string {
+	if e == nil {
+		return ""
+	}
+	return e.Name
+}
+
+func (e *EnvironmentSpecMcpItem) GetTransport() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Transport
+}
+
+func (e *EnvironmentSpecMcpItem) GetURL() *string {
+	if e == nil {
+		return nil
+	}
+	return e.URL
+}
+
+func (e *EnvironmentSpecMcpItem) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentSpecMcpItem) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetCommand sets the Command field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecMcpItem) SetCommand(command *string) {
+	e.Command = command
+	e.require(environmentSpecMcpItemFieldCommand)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecMcpItem) SetName(name string) {
+	e.Name = name
+	e.require(environmentSpecMcpItemFieldName)
+}
+
+// SetTransport sets the Transport field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecMcpItem) SetTransport(transport *string) {
+	e.Transport = transport
+	e.require(environmentSpecMcpItemFieldTransport)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecMcpItem) SetURL(url *string) {
+	e.URL = url
+	e.require(environmentSpecMcpItemFieldURL)
+}
+
+func (e *EnvironmentSpecMcpItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentSpecMcpItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentSpecMcpItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentSpecMcpItem) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentSpecMcpItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentSpecMcpItem) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentSpecServicesItemFieldAuthorities = big.NewInt(1 << 0)
+	environmentSpecServicesItemFieldName        = big.NewInt(1 << 1)
+	environmentSpecServicesItemFieldOpenapiURI  = big.NewInt(1 << 2)
+)
+
+type EnvironmentSpecServicesItem struct {
+	Authorities []string `json:"authorities,omitempty" url:"authorities,omitempty"`
+	Name        string   `json:"name" url:"name"`
+	OpenapiURI  *string  `json:"openapiUri,omitempty" url:"openapiUri,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentSpecServicesItem) GetAuthorities() []string {
+	if e == nil {
+		return nil
+	}
+	return e.Authorities
+}
+
+func (e *EnvironmentSpecServicesItem) GetName() string {
+	if e == nil {
+		return ""
+	}
+	return e.Name
+}
+
+func (e *EnvironmentSpecServicesItem) GetOpenapiURI() *string {
+	if e == nil {
+		return nil
+	}
+	return e.OpenapiURI
+}
+
+func (e *EnvironmentSpecServicesItem) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentSpecServicesItem) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetAuthorities sets the Authorities field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecServicesItem) SetAuthorities(authorities []string) {
+	e.Authorities = authorities
+	e.require(environmentSpecServicesItemFieldAuthorities)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecServicesItem) SetName(name string) {
+	e.Name = name
+	e.require(environmentSpecServicesItemFieldName)
+}
+
+// SetOpenapiURI sets the OpenapiURI field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecServicesItem) SetOpenapiURI(openapiURI *string) {
+	e.OpenapiURI = openapiURI
+	e.require(environmentSpecServicesItemFieldOpenapiURI)
+}
+
+func (e *EnvironmentSpecServicesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentSpecServicesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentSpecServicesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentSpecServicesItem) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentSpecServicesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentSpecServicesItem) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+// One declared twin: which model to run and which captured hosts feed its seed (empty means the model's default, e.g. `slack.com`).
+var (
+	environmentSpecTwinsItemFieldAuthorities = big.NewInt(1 << 0)
+	environmentSpecTwinsItemFieldImage       = big.NewInt(1 << 1)
+	environmentSpecTwinsItemFieldService     = big.NewInt(1 << 2)
+)
+
+type EnvironmentSpecTwinsItem struct {
+	Authorities []string `json:"authorities,omitempty" url:"authorities,omitempty"`
+	// Image override; defaults to the platform's per-service template.
+	Image *string `json:"image,omitempty" url:"image,omitempty"`
+	// Twin model name, e.g. `slack`.
+	Service string `json:"service" url:"service"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentSpecTwinsItem) GetAuthorities() []string {
+	if e == nil {
+		return nil
+	}
+	return e.Authorities
+}
+
+func (e *EnvironmentSpecTwinsItem) GetImage() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Image
+}
+
+func (e *EnvironmentSpecTwinsItem) GetService() string {
+	if e == nil {
+		return ""
+	}
+	return e.Service
+}
+
+func (e *EnvironmentSpecTwinsItem) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentSpecTwinsItem) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetAuthorities sets the Authorities field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecTwinsItem) SetAuthorities(authorities []string) {
+	e.Authorities = authorities
+	e.require(environmentSpecTwinsItemFieldAuthorities)
+}
+
+// SetImage sets the Image field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecTwinsItem) SetImage(image *string) {
+	e.Image = image
+	e.require(environmentSpecTwinsItemFieldImage)
+}
+
+// SetService sets the Service field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentSpecTwinsItem) SetService(service string) {
+	e.Service = service
+	e.require(environmentSpecTwinsItemFieldService)
+}
+
+func (e *EnvironmentSpecTwinsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentSpecTwinsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentSpecTwinsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentSpecTwinsItem) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentSpecTwinsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentSpecTwinsItem) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentVersionRecordFieldCreatedAt     = big.NewInt(1 << 0)
+	environmentVersionRecordFieldEnvironmentID = big.NewInt(1 << 1)
+	environmentVersionRecordFieldID            = big.NewInt(1 << 2)
+	environmentVersionRecordFieldSpec          = big.NewInt(1 << 3)
+	environmentVersionRecordFieldStatus        = big.NewInt(1 << 4)
+	environmentVersionRecordFieldTenantID      = big.NewInt(1 << 5)
+	environmentVersionRecordFieldVersion       = big.NewInt(1 << 6)
+)
+
+type EnvironmentVersionRecord struct {
+	CreatedAt     time.Time                      `json:"createdAt" url:"createdAt"`
+	EnvironmentID string                         `json:"environmentId" url:"environmentId"`
+	ID            string                         `json:"id" url:"id"`
+	Spec          *EnvironmentVersionRecordSpec  `json:"spec" url:"spec"`
+	Status        EnvironmentVersionRecordStatus `json:"status" url:"status"`
+	TenantID      string                         `json:"tenantId" url:"tenantId"`
+	Version       string                         `json:"version" url:"version"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionRecord) GetCreatedAt() time.Time {
+	if e == nil {
+		return time.Time{}
+	}
+	return e.CreatedAt
+}
+
+func (e *EnvironmentVersionRecord) GetEnvironmentID() string {
+	if e == nil {
+		return ""
+	}
+	return e.EnvironmentID
+}
+
+func (e *EnvironmentVersionRecord) GetID() string {
+	if e == nil {
+		return ""
+	}
+	return e.ID
+}
+
+func (e *EnvironmentVersionRecord) GetSpec() *EnvironmentVersionRecordSpec {
+	if e == nil {
+		return nil
+	}
+	return e.Spec
+}
+
+func (e *EnvironmentVersionRecord) GetStatus() EnvironmentVersionRecordStatus {
+	if e == nil {
+		return ""
+	}
+	return e.Status
+}
+
+func (e *EnvironmentVersionRecord) GetTenantID() string {
+	if e == nil {
+		return ""
+	}
+	return e.TenantID
+}
+
+func (e *EnvironmentVersionRecord) GetVersion() string {
+	if e == nil {
+		return ""
+	}
+	return e.Version
+}
+
+func (e *EnvironmentVersionRecord) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionRecord) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetCreatedAt(createdAt time.Time) {
+	e.CreatedAt = createdAt
+	e.require(environmentVersionRecordFieldCreatedAt)
+}
+
+// SetEnvironmentID sets the EnvironmentID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetEnvironmentID(environmentID string) {
+	e.EnvironmentID = environmentID
+	e.require(environmentVersionRecordFieldEnvironmentID)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetID(id string) {
+	e.ID = id
+	e.require(environmentVersionRecordFieldID)
+}
+
+// SetSpec sets the Spec field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetSpec(spec *EnvironmentVersionRecordSpec) {
+	e.Spec = spec
+	e.require(environmentVersionRecordFieldSpec)
+}
+
+// SetStatus sets the Status field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetStatus(status EnvironmentVersionRecordStatus) {
+	e.Status = status
+	e.require(environmentVersionRecordFieldStatus)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetTenantID(tenantID string) {
+	e.TenantID = tenantID
+	e.require(environmentVersionRecordFieldTenantID)
+}
+
+// SetVersion sets the Version field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecord) SetVersion(version string) {
+	e.Version = version
+	e.require(environmentVersionRecordFieldVersion)
+}
+
+func (e *EnvironmentVersionRecord) UnmarshalJSON(data []byte) error {
+	type embed EnvironmentVersionRecord
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+	}{
+		embed: embed(*e),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionRecord(unmarshaler.embed)
+	e.CreatedAt = unmarshaler.CreatedAt.Time()
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionRecord) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionRecord
+	var marshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+	}{
+		embed:     embed(*e),
+		CreatedAt: internal.NewDateTime(e.CreatedAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionRecord) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentVersionRecordSpecFieldDatastores   = big.NewInt(1 << 0)
+	environmentVersionRecordSpecFieldInterception = big.NewInt(1 << 1)
+	environmentVersionRecordSpecFieldMcp          = big.NewInt(1 << 2)
+	environmentVersionRecordSpecFieldServices     = big.NewInt(1 << 3)
+	environmentVersionRecordSpecFieldTwins        = big.NewInt(1 << 4)
+)
+
+type EnvironmentVersionRecordSpec struct {
+	Datastores   []any                                       `json:"datastores,omitempty" url:"datastores,omitempty"`
+	Interception *EnvironmentVersionRecordSpecInterception   `json:"interception" url:"interception"`
+	Mcp          []*EnvironmentVersionRecordSpecMcpItem      `json:"mcp,omitempty" url:"mcp,omitempty"`
+	Services     []*EnvironmentVersionRecordSpecServicesItem `json:"services,omitempty" url:"services,omitempty"`
+	// Twins this environment wants running (`backend/twins` models), seeded from the environment's dataset when spun up.
+	Twins []*EnvironmentVersionRecordSpecTwinsItem `json:"twins,omitempty" url:"twins,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionRecordSpec) GetDatastores() []any {
+	if e == nil {
+		return nil
+	}
+	return e.Datastores
+}
+
+func (e *EnvironmentVersionRecordSpec) GetInterception() *EnvironmentVersionRecordSpecInterception {
+	if e == nil {
+		return nil
+	}
+	return e.Interception
+}
+
+func (e *EnvironmentVersionRecordSpec) GetMcp() []*EnvironmentVersionRecordSpecMcpItem {
+	if e == nil {
+		return nil
+	}
+	return e.Mcp
+}
+
+func (e *EnvironmentVersionRecordSpec) GetServices() []*EnvironmentVersionRecordSpecServicesItem {
+	if e == nil {
+		return nil
+	}
+	return e.Services
+}
+
+func (e *EnvironmentVersionRecordSpec) GetTwins() []*EnvironmentVersionRecordSpecTwinsItem {
+	if e == nil {
+		return nil
+	}
+	return e.Twins
+}
+
+func (e *EnvironmentVersionRecordSpec) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionRecordSpec) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetDatastores sets the Datastores field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpec) SetDatastores(datastores []any) {
+	e.Datastores = datastores
+	e.require(environmentVersionRecordSpecFieldDatastores)
+}
+
+// SetInterception sets the Interception field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpec) SetInterception(interception *EnvironmentVersionRecordSpecInterception) {
+	e.Interception = interception
+	e.require(environmentVersionRecordSpecFieldInterception)
+}
+
+// SetMcp sets the Mcp field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpec) SetMcp(mcp []*EnvironmentVersionRecordSpecMcpItem) {
+	e.Mcp = mcp
+	e.require(environmentVersionRecordSpecFieldMcp)
+}
+
+// SetServices sets the Services field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpec) SetServices(services []*EnvironmentVersionRecordSpecServicesItem) {
+	e.Services = services
+	e.require(environmentVersionRecordSpecFieldServices)
+}
+
+// SetTwins sets the Twins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpec) SetTwins(twins []*EnvironmentVersionRecordSpecTwinsItem) {
+	e.Twins = twins
+	e.require(environmentVersionRecordSpecFieldTwins)
+}
+
+func (e *EnvironmentVersionRecordSpec) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentVersionRecordSpec
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionRecordSpec(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionRecordSpec) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionRecordSpec
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionRecordSpec) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentVersionRecordSpecInterceptionFieldInstallCa            = big.NewInt(1 << 0)
+	environmentVersionRecordSpecInterceptionFieldRegularProxyPort     = big.NewInt(1 << 1)
+	environmentVersionRecordSpecInterceptionFieldTransparentProxyPort = big.NewInt(1 << 2)
+)
+
+type EnvironmentVersionRecordSpecInterception struct {
+	InstallCa            *bool `json:"installCa,omitempty" url:"installCa,omitempty"`
+	RegularProxyPort     *int  `json:"regularProxyPort,omitempty" url:"regularProxyPort,omitempty"`
+	TransparentProxyPort *int  `json:"transparentProxyPort,omitempty" url:"transparentProxyPort,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) GetInstallCa() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.InstallCa
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) GetRegularProxyPort() *int {
+	if e == nil {
+		return nil
+	}
+	return e.RegularProxyPort
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) GetTransparentProxyPort() *int {
+	if e == nil {
+		return nil
+	}
+	return e.TransparentProxyPort
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetInstallCa sets the InstallCa field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecInterception) SetInstallCa(installCa *bool) {
+	e.InstallCa = installCa
+	e.require(environmentVersionRecordSpecInterceptionFieldInstallCa)
+}
+
+// SetRegularProxyPort sets the RegularProxyPort field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecInterception) SetRegularProxyPort(regularProxyPort *int) {
+	e.RegularProxyPort = regularProxyPort
+	e.require(environmentVersionRecordSpecInterceptionFieldRegularProxyPort)
+}
+
+// SetTransparentProxyPort sets the TransparentProxyPort field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecInterception) SetTransparentProxyPort(transparentProxyPort *int) {
+	e.TransparentProxyPort = transparentProxyPort
+	e.require(environmentVersionRecordSpecInterceptionFieldTransparentProxyPort)
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentVersionRecordSpecInterception
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionRecordSpecInterception(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionRecordSpecInterception
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionRecordSpecInterception) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentVersionRecordSpecMcpItemFieldCommand   = big.NewInt(1 << 0)
+	environmentVersionRecordSpecMcpItemFieldName      = big.NewInt(1 << 1)
+	environmentVersionRecordSpecMcpItemFieldTransport = big.NewInt(1 << 2)
+	environmentVersionRecordSpecMcpItemFieldURL       = big.NewInt(1 << 3)
+)
+
+type EnvironmentVersionRecordSpecMcpItem struct {
+	Command   *string `json:"command,omitempty" url:"command,omitempty"`
+	Name      string  `json:"name" url:"name"`
+	Transport *string `json:"transport,omitempty" url:"transport,omitempty"`
+	URL       *string `json:"url,omitempty" url:"url,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) GetCommand() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Command
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) GetName() string {
+	if e == nil {
+		return ""
+	}
+	return e.Name
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) GetTransport() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Transport
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) GetURL() *string {
+	if e == nil {
+		return nil
+	}
+	return e.URL
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetCommand sets the Command field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecMcpItem) SetCommand(command *string) {
+	e.Command = command
+	e.require(environmentVersionRecordSpecMcpItemFieldCommand)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecMcpItem) SetName(name string) {
+	e.Name = name
+	e.require(environmentVersionRecordSpecMcpItemFieldName)
+}
+
+// SetTransport sets the Transport field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecMcpItem) SetTransport(transport *string) {
+	e.Transport = transport
+	e.require(environmentVersionRecordSpecMcpItemFieldTransport)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecMcpItem) SetURL(url *string) {
+	e.URL = url
+	e.require(environmentVersionRecordSpecMcpItemFieldURL)
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentVersionRecordSpecMcpItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionRecordSpecMcpItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionRecordSpecMcpItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionRecordSpecMcpItem) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+var (
+	environmentVersionRecordSpecServicesItemFieldAuthorities = big.NewInt(1 << 0)
+	environmentVersionRecordSpecServicesItemFieldName        = big.NewInt(1 << 1)
+	environmentVersionRecordSpecServicesItemFieldOpenapiURI  = big.NewInt(1 << 2)
+)
+
+type EnvironmentVersionRecordSpecServicesItem struct {
+	Authorities []string `json:"authorities,omitempty" url:"authorities,omitempty"`
+	Name        string   `json:"name" url:"name"`
+	OpenapiURI  *string  `json:"openapiUri,omitempty" url:"openapiUri,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) GetAuthorities() []string {
+	if e == nil {
+		return nil
+	}
+	return e.Authorities
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) GetName() string {
+	if e == nil {
+		return ""
+	}
+	return e.Name
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) GetOpenapiURI() *string {
+	if e == nil {
+		return nil
+	}
+	return e.OpenapiURI
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetAuthorities sets the Authorities field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecServicesItem) SetAuthorities(authorities []string) {
+	e.Authorities = authorities
+	e.require(environmentVersionRecordSpecServicesItemFieldAuthorities)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecServicesItem) SetName(name string) {
+	e.Name = name
+	e.require(environmentVersionRecordSpecServicesItemFieldName)
+}
+
+// SetOpenapiURI sets the OpenapiURI field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecServicesItem) SetOpenapiURI(openapiURI *string) {
+	e.OpenapiURI = openapiURI
+	e.require(environmentVersionRecordSpecServicesItemFieldOpenapiURI)
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentVersionRecordSpecServicesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionRecordSpecServicesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionRecordSpecServicesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionRecordSpecServicesItem) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+// One declared twin: which model to run and which captured hosts feed its seed (empty means the model's default, e.g. `slack.com`).
+var (
+	environmentVersionRecordSpecTwinsItemFieldAuthorities = big.NewInt(1 << 0)
+	environmentVersionRecordSpecTwinsItemFieldImage       = big.NewInt(1 << 1)
+	environmentVersionRecordSpecTwinsItemFieldService     = big.NewInt(1 << 2)
+)
+
+type EnvironmentVersionRecordSpecTwinsItem struct {
+	Authorities []string `json:"authorities,omitempty" url:"authorities,omitempty"`
+	// Image override; defaults to the platform's per-service template.
+	Image *string `json:"image,omitempty" url:"image,omitempty"`
+	// Twin model name, e.g. `slack`.
+	Service string `json:"service" url:"service"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) GetAuthorities() []string {
+	if e == nil {
+		return nil
+	}
+	return e.Authorities
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) GetImage() *string {
+	if e == nil {
+		return nil
+	}
+	return e.Image
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) GetService() string {
+	if e == nil {
+		return ""
+	}
+	return e.Service
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetAuthorities sets the Authorities field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecTwinsItem) SetAuthorities(authorities []string) {
+	e.Authorities = authorities
+	e.require(environmentVersionRecordSpecTwinsItemFieldAuthorities)
+}
+
+// SetImage sets the Image field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecTwinsItem) SetImage(image *string) {
+	e.Image = image
+	e.require(environmentVersionRecordSpecTwinsItemFieldImage)
+}
+
+// SetService sets the Service field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionRecordSpecTwinsItem) SetService(service string) {
+	e.Service = service
+	e.require(environmentVersionRecordSpecTwinsItemFieldService)
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentVersionRecordSpecTwinsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionRecordSpecTwinsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionRecordSpecTwinsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionRecordSpecTwinsItem) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+type EnvironmentVersionRecordStatus string
+
+const (
+	EnvironmentVersionRecordStatusDraft     EnvironmentVersionRecordStatus = "draft"
+	EnvironmentVersionRecordStatusPublished EnvironmentVersionRecordStatus = "published"
+	EnvironmentVersionRecordStatusArchived  EnvironmentVersionRecordStatus = "archived"
+)
+
+func NewEnvironmentVersionRecordStatusFromString(s string) (EnvironmentVersionRecordStatus, error) {
+	switch s {
+	case "draft":
+		return EnvironmentVersionRecordStatusDraft, nil
+	case "published":
+		return EnvironmentVersionRecordStatusPublished, nil
+	case "archived":
+		return EnvironmentVersionRecordStatusArchived, nil
+	}
+	var t EnvironmentVersionRecordStatus
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e EnvironmentVersionRecordStatus) Ptr() *EnvironmentVersionRecordStatus {
+	return &e
+}
+
+var (
+	environmentVersionResponseFieldEnvironment = big.NewInt(1 << 0)
+	environmentVersionResponseFieldVersion     = big.NewInt(1 << 1)
+)
+
+type EnvironmentVersionResponse struct {
+	Environment *EnvironmentRecord        `json:"environment" url:"environment"`
+	Version     *EnvironmentVersionRecord `json:"version" url:"version"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (e *EnvironmentVersionResponse) GetEnvironment() *EnvironmentRecord {
+	if e == nil {
+		return nil
+	}
+	return e.Environment
+}
+
+func (e *EnvironmentVersionResponse) GetVersion() *EnvironmentVersionRecord {
+	if e == nil {
+		return nil
+	}
+	return e.Version
+}
+
+func (e *EnvironmentVersionResponse) GetExtraProperties() map[string]interface{} {
+	if e == nil {
+		return nil
+	}
+	return e.extraProperties
+}
+
+func (e *EnvironmentVersionResponse) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetEnvironment sets the Environment field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionResponse) SetEnvironment(environment *EnvironmentRecord) {
+	e.Environment = environment
+	e.require(environmentVersionResponseFieldEnvironment)
+}
+
+// SetVersion sets the Version field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *EnvironmentVersionResponse) SetVersion(version *EnvironmentVersionRecord) {
+	e.Version = version
+	e.require(environmentVersionResponseFieldVersion)
+}
+
+func (e *EnvironmentVersionResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler EnvironmentVersionResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*e = EnvironmentVersionResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *e)
+	if err != nil {
+		return err
+	}
+	e.extraProperties = extraProperties
+	e.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (e *EnvironmentVersionResponse) MarshalJSON() ([]byte, error) {
+	type embed EnvironmentVersionResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*e),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, e.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (e *EnvironmentVersionResponse) String() string {
+	if e == nil {
+		return "<nil>"
+	}
+	if len(e.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(e.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(e); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", e)
+}
+
+type EnvironmentVersionStatus string
+
+const (
+	EnvironmentVersionStatusDraft     EnvironmentVersionStatus = "draft"
+	EnvironmentVersionStatusPublished EnvironmentVersionStatus = "published"
+	EnvironmentVersionStatusArchived  EnvironmentVersionStatus = "archived"
+)
+
+func NewEnvironmentVersionStatusFromString(s string) (EnvironmentVersionStatus, error) {
+	switch s {
+	case "draft":
+		return EnvironmentVersionStatusDraft, nil
+	case "published":
+		return EnvironmentVersionStatusPublished, nil
+	case "archived":
+		return EnvironmentVersionStatusArchived, nil
+	}
+	var t EnvironmentVersionStatus
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (e EnvironmentVersionStatus) Ptr() *EnvironmentVersionStatus {
+	return &e
+}
+
+var (
+	listEnvironmentsResponseFieldEnvironments = big.NewInt(1 << 0)
+)
+
+type ListEnvironmentsResponse struct {
+	Environments []*ListEnvironmentsResponseEnvironmentsItem `json:"environments" url:"environments"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (l *ListEnvironmentsResponse) GetEnvironments() []*ListEnvironmentsResponseEnvironmentsItem {
+	if l == nil {
+		return nil
+	}
+	return l.Environments
+}
+
+func (l *ListEnvironmentsResponse) GetExtraProperties() map[string]interface{} {
+	if l == nil {
+		return nil
+	}
+	return l.extraProperties
+}
+
+func (l *ListEnvironmentsResponse) require(field *big.Int) {
+	if l.explicitFields == nil {
+		l.explicitFields = big.NewInt(0)
+	}
+	l.explicitFields.Or(l.explicitFields, field)
+}
+
+// SetEnvironments sets the Environments field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListEnvironmentsResponse) SetEnvironments(environments []*ListEnvironmentsResponseEnvironmentsItem) {
+	l.Environments = environments
+	l.require(listEnvironmentsResponseFieldEnvironments)
+}
+
+func (l *ListEnvironmentsResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler ListEnvironmentsResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*l = ListEnvironmentsResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *l)
+	if err != nil {
+		return err
+	}
+	l.extraProperties = extraProperties
+	l.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (l *ListEnvironmentsResponse) MarshalJSON() ([]byte, error) {
+	type embed ListEnvironmentsResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*l),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, l.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (l *ListEnvironmentsResponse) String() string {
+	if l == nil {
+		return "<nil>"
+	}
+	if len(l.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(l.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(l); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", l)
+}
+
+var (
+	listEnvironmentsResponseEnvironmentsItemFieldEnvironment = big.NewInt(1 << 0)
+	listEnvironmentsResponseEnvironmentsItemFieldVersions    = big.NewInt(1 << 1)
+)
+
+type ListEnvironmentsResponseEnvironmentsItem struct {
+	Environment *EnvironmentRecord          `json:"environment" url:"environment"`
+	Versions    []*EnvironmentVersionRecord `json:"versions" url:"versions"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) GetEnvironment() *EnvironmentRecord {
+	if l == nil {
+		return nil
+	}
+	return l.Environment
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) GetVersions() []*EnvironmentVersionRecord {
+	if l == nil {
+		return nil
+	}
+	return l.Versions
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) GetExtraProperties() map[string]interface{} {
+	if l == nil {
+		return nil
+	}
+	return l.extraProperties
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) require(field *big.Int) {
+	if l.explicitFields == nil {
+		l.explicitFields = big.NewInt(0)
+	}
+	l.explicitFields.Or(l.explicitFields, field)
+}
+
+// SetEnvironment sets the Environment field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListEnvironmentsResponseEnvironmentsItem) SetEnvironment(environment *EnvironmentRecord) {
+	l.Environment = environment
+	l.require(listEnvironmentsResponseEnvironmentsItemFieldEnvironment)
+}
+
+// SetVersions sets the Versions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListEnvironmentsResponseEnvironmentsItem) SetVersions(versions []*EnvironmentVersionRecord) {
+	l.Versions = versions
+	l.require(listEnvironmentsResponseEnvironmentsItemFieldVersions)
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ListEnvironmentsResponseEnvironmentsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*l = ListEnvironmentsResponseEnvironmentsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *l)
+	if err != nil {
+		return err
+	}
+	l.extraProperties = extraProperties
+	l.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) MarshalJSON() ([]byte, error) {
+	type embed ListEnvironmentsResponseEnvironmentsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*l),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, l.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (l *ListEnvironmentsResponseEnvironmentsItem) String() string {
+	if l == nil {
+		return "<nil>"
+	}
+	if len(l.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(l.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(l); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", l)
 }

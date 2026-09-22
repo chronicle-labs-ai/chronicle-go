@@ -3,8 +3,13 @@
 package client
 
 import (
+	agents "github.com/chronicle-labs-ai/chronicle-go/agents"
+	backtests "github.com/chronicle-labs-ai/chronicle-go/backtests"
 	core "github.com/chronicle-labs-ai/chronicle-go/core"
+	credentials "github.com/chronicle-labs-ai/chronicle-go/credentials"
+	datasets "github.com/chronicle-labs-ai/chronicle-go/datasets"
 	discover "github.com/chronicle-labs-ai/chronicle-go/discover"
+	environments "github.com/chronicle-labs-ai/chronicle-go/environments"
 	events "github.com/chronicle-labs-ai/chronicle-go/events"
 	internal "github.com/chronicle-labs-ai/chronicle-go/internal"
 	links "github.com/chronicle-labs-ai/chronicle-go/links"
@@ -15,12 +20,17 @@ import (
 )
 
 type Client struct {
-	Events   *events.Client
-	Timeline *timeline.Client
-	Search   *search.Client
-	Discover *discover.Client
-	Links    *links.Client
-	Sdk      *sdk.Client
+	Events       *events.Client
+	Timeline     *timeline.Client
+	Search       *search.Client
+	Discover     *discover.Client
+	Links        *links.Client
+	Sdk          *sdk.Client
+	Agents       *agents.Client
+	Datasets     *datasets.Client
+	Environments *environments.Client
+	Backtests    *backtests.Client
+	Credentials  *credentials.Client
 
 	options *core.RequestOptions
 	baseURL string
@@ -30,14 +40,19 @@ type Client struct {
 func NewClient(opts ...option.RequestOption) *Client {
 	options := core.NewRequestOptions(opts...)
 	return &Client{
-		Events:   events.NewClient(options),
-		Timeline: timeline.NewClient(options),
-		Search:   search.NewClient(options),
-		Discover: discover.NewClient(options),
-		Links:    links.NewClient(options),
-		Sdk:      sdk.NewClient(options),
-		options:  options,
-		baseURL:  options.BaseURL,
+		Events:       events.NewClient(options),
+		Timeline:     timeline.NewClient(options),
+		Search:       search.NewClient(options),
+		Discover:     discover.NewClient(options),
+		Links:        links.NewClient(options),
+		Sdk:          sdk.NewClient(options),
+		Agents:       agents.NewClient(options),
+		Datasets:     datasets.NewClient(options),
+		Environments: environments.NewClient(options),
+		Backtests:    backtests.NewClient(options),
+		Credentials:  credentials.NewClient(options),
+		options:      options,
+		baseURL:      options.BaseURL,
 		caller: internal.NewCaller(
 			&internal.CallerParams{
 				Client:         options.HTTPClient,
