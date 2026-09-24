@@ -441,6 +441,14 @@ func TestSettersListBacktestJobTrialsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetCursor", func(t *testing.T) {
+		obj := &ListBacktestJobTrialsRequest{}
+		var fernTestValueCursor *string
+		obj.SetCursor(fernTestValueCursor)
+		assert.Equal(t, fernTestValueCursor, obj.Cursor)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetOffset", func(t *testing.T) {
 		obj := &ListBacktestJobTrialsRequest{}
 		var fernTestValueOffset *int
@@ -491,6 +499,37 @@ func TestSettersMarkExplicitListBacktestJobTrialsRequest(t *testing.T) {
 
 		// Act
 		obj.SetLimit(fernTestValueLimit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetCursor_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobTrialsRequest{}
+		var fernTestValueCursor *string
+
+		// Act
+		obj.SetCursor(fernTestValueCursor)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -569,6 +608,14 @@ func TestSettersListBacktestJobsRequest(t *testing.T) {
 		var fernTestValueLimit *int
 		obj.SetLimit(fernTestValueLimit)
 		assert.Equal(t, fernTestValueLimit, obj.Limit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetCursor", func(t *testing.T) {
+		obj := &ListBacktestJobsRequest{}
+		var fernTestValueCursor *string
+		obj.SetCursor(fernTestValueCursor)
+		assert.Equal(t, fernTestValueCursor, obj.Cursor)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -653,6 +700,37 @@ func TestSettersMarkExplicitListBacktestJobsRequest(t *testing.T) {
 
 		// Act
 		obj.SetLimit(fernTestValueLimit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetCursor_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobsRequest{}
+		var fernTestValueCursor *string
+
+		// Act
+		obj.SetCursor(fernTestValueCursor)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -18863,6 +18941,14 @@ func TestSettersListBacktestJobTrialsResponse(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetNextCursor", func(t *testing.T) {
+		obj := &ListBacktestJobTrialsResponse{}
+		var fernTestValueNextCursor *string
+		obj.SetNextCursor(fernTestValueNextCursor)
+		assert.Equal(t, fernTestValueNextCursor, obj.NextCursor)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetNextOffset", func(t *testing.T) {
 		obj := &ListBacktestJobTrialsResponse{}
 		var fernTestValueNextOffset *int
@@ -18911,6 +18997,39 @@ func TestGettersListBacktestJobTrialsResponse(t *testing.T) {
 			}
 		}()
 		_ = obj.GetHasMore() // Should return zero value
+	})
+
+	t.Run("GetNextCursor", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobTrialsResponse{}
+		var expected *string
+		obj.NextCursor = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetNextCursor(), "getter should return the property value")
+	})
+
+	t.Run("GetNextCursor_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobTrialsResponse{}
+		obj.NextCursor = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetNextCursor(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetNextCursor_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *ListBacktestJobTrialsResponse
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetNextCursor() // Should return zero value
 	})
 
 	t.Run("GetNextOffset", func(t *testing.T) {
@@ -19023,6 +19142,37 @@ func TestSettersMarkExplicitListBacktestJobTrialsResponse(t *testing.T) {
 
 		// Act
 		obj.SetHasMore(fernTestValueHasMore)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetNextCursor_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobTrialsResponse{}
+		var fernTestValueNextCursor *string
+
+		// Act
+		obj.SetNextCursor(fernTestValueNextCursor)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -20991,6 +21141,14 @@ func TestSettersListBacktestJobsResponse(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetNextCursor", func(t *testing.T) {
+		obj := &ListBacktestJobsResponse{}
+		var fernTestValueNextCursor *string
+		obj.SetNextCursor(fernTestValueNextCursor)
+		assert.Equal(t, fernTestValueNextCursor, obj.NextCursor)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetNextOffset", func(t *testing.T) {
 		obj := &ListBacktestJobsResponse{}
 		var fernTestValueNextOffset *int
@@ -21031,6 +21189,39 @@ func TestGettersListBacktestJobsResponse(t *testing.T) {
 			}
 		}()
 		_ = obj.GetHasMore() // Should return zero value
+	})
+
+	t.Run("GetNextCursor", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobsResponse{}
+		var expected *string
+		obj.NextCursor = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetNextCursor(), "getter should return the property value")
+	})
+
+	t.Run("GetNextCursor_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobsResponse{}
+		obj.NextCursor = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetNextCursor(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetNextCursor_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *ListBacktestJobsResponse
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetNextCursor() // Should return zero value
 	})
 
 	t.Run("GetNextOffset", func(t *testing.T) {
@@ -21110,6 +21301,37 @@ func TestSettersMarkExplicitListBacktestJobsResponse(t *testing.T) {
 
 		// Act
 		obj.SetHasMore(fernTestValueHasMore)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetNextCursor_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListBacktestJobsResponse{}
+		var fernTestValueNextCursor *string
+
+		// Act
+		obj.SetNextCursor(fernTestValueNextCursor)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

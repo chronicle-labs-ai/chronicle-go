@@ -192,7 +192,7 @@ type ErrorResponse struct {
 	// Explanation specific to this occurrence
 	Detail string `json:"detail" url:"detail"`
 	// Stable machine-readable slug to branch on
-	Code ErrorResponseCode `json:"code" url:"code"`
+	Code string `json:"code" url:"code"`
 	// Retained for existing clients. Same value as `code`.
 	Error string `json:"error" url:"error"`
 	// Retained for existing clients. Same value as `detail`.
@@ -238,7 +238,7 @@ func (e *ErrorResponse) GetDetail() string {
 	return e.Detail
 }
 
-func (e *ErrorResponse) GetCode() ErrorResponseCode {
+func (e *ErrorResponse) GetCode() string {
 	if e == nil {
 		return ""
 	}
@@ -324,7 +324,7 @@ func (e *ErrorResponse) SetDetail(detail string) {
 
 // SetCode sets the Code field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *ErrorResponse) SetCode(code ErrorResponseCode) {
+func (e *ErrorResponse) SetCode(code string) {
 	e.Code = code
 	e.require(errorResponseFieldCode)
 }
@@ -404,65 +404,6 @@ func (e *ErrorResponse) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", e)
-}
-
-// Stable machine-readable slug to branch on
-type ErrorResponseCode string
-
-const (
-	ErrorResponseCodeNotFound                  ErrorResponseCode = "not_found"
-	ErrorResponseCodeBadRequest                ErrorResponseCode = "bad_request"
-	ErrorResponseCodeUnauthorized              ErrorResponseCode = "unauthorized"
-	ErrorResponseCodeValidationError           ErrorResponseCode = "validation_error"
-	ErrorResponseCodeUnsupportedMediaType      ErrorResponseCode = "unsupported_media_type"
-	ErrorResponseCodePayloadTooLarge           ErrorResponseCode = "payload_too_large"
-	ErrorResponseCodeRateLimited               ErrorResponseCode = "rate_limited"
-	ErrorResponseCodeStreamReplayLimitExceeded ErrorResponseCode = "stream_replay_limit_exceeded"
-	ErrorResponseCodeStreamUnavailable         ErrorResponseCode = "stream_unavailable"
-	ErrorResponseCodeServiceOverloaded         ErrorResponseCode = "service_overloaded"
-	ErrorResponseCodeRequestTimeout            ErrorResponseCode = "request_timeout"
-	ErrorResponseCodeStreamError               ErrorResponseCode = "stream_error"
-	ErrorResponseCodeStoreError                ErrorResponseCode = "store_error"
-	ErrorResponseCodeInternalError             ErrorResponseCode = "internal_error"
-)
-
-func NewErrorResponseCodeFromString(s string) (ErrorResponseCode, error) {
-	switch s {
-	case "not_found":
-		return ErrorResponseCodeNotFound, nil
-	case "bad_request":
-		return ErrorResponseCodeBadRequest, nil
-	case "unauthorized":
-		return ErrorResponseCodeUnauthorized, nil
-	case "validation_error":
-		return ErrorResponseCodeValidationError, nil
-	case "unsupported_media_type":
-		return ErrorResponseCodeUnsupportedMediaType, nil
-	case "payload_too_large":
-		return ErrorResponseCodePayloadTooLarge, nil
-	case "rate_limited":
-		return ErrorResponseCodeRateLimited, nil
-	case "stream_replay_limit_exceeded":
-		return ErrorResponseCodeStreamReplayLimitExceeded, nil
-	case "stream_unavailable":
-		return ErrorResponseCodeStreamUnavailable, nil
-	case "service_overloaded":
-		return ErrorResponseCodeServiceOverloaded, nil
-	case "request_timeout":
-		return ErrorResponseCodeRequestTimeout, nil
-	case "stream_error":
-		return ErrorResponseCodeStreamError, nil
-	case "store_error":
-		return ErrorResponseCodeStoreError, nil
-	case "internal_error":
-		return ErrorResponseCodeInternalError, nil
-	}
-	var t ErrorResponseCode
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e ErrorResponseCode) Ptr() *ErrorResponseCode {
-	return &e
 }
 
 // A stored event. Immutable once written.

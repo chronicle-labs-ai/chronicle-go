@@ -45,7 +45,7 @@ var (
 )
 
 type CreateBacktestJobRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey     *string                              `json:"-" url:"-"`
 	Cases              []*CreateBacktestJobRequestCasesItem `json:"cases,omitempty" url:"-"`
 	EvaluatorProfileID *string                              `json:"evaluatorProfileId,omitempty" url:"-"`
@@ -189,13 +189,17 @@ func (g *GetBacktestTrialRequest) SetTrialID(trialID string) {
 var (
 	listBacktestJobTrialsRequestFieldJobID  = big.NewInt(1 << 0)
 	listBacktestJobTrialsRequestFieldLimit  = big.NewInt(1 << 1)
-	listBacktestJobTrialsRequestFieldOffset = big.NewInt(1 << 2)
+	listBacktestJobTrialsRequestFieldCursor = big.NewInt(1 << 2)
+	listBacktestJobTrialsRequestFieldOffset = big.NewInt(1 << 3)
 )
 
 type ListBacktestJobTrialsRequest struct {
-	JobID  string `json:"-" url:"-"`
-	Limit  *int   `json:"-" url:"limit,omitempty"`
-	Offset *int   `json:"-" url:"offset,omitempty"`
+	JobID string `json:"-" url:"-"`
+	Limit *int   `json:"-" url:"limit,omitempty"`
+	// Opaque position returned as `next_cursor` by the preceding page.
+	Cursor *string `json:"-" url:"cursor,omitempty"`
+	// Deprecated compatibility input. Pass the opaque `cursor` instead.
+	Offset *int `json:"-" url:"offset,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -222,6 +226,13 @@ func (l *ListBacktestJobTrialsRequest) SetLimit(limit *int) {
 	l.require(listBacktestJobTrialsRequestFieldLimit)
 }
 
+// SetCursor sets the Cursor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListBacktestJobTrialsRequest) SetCursor(cursor *string) {
+	l.Cursor = cursor
+	l.require(listBacktestJobTrialsRequestFieldCursor)
+}
+
 // SetOffset sets the Offset field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (l *ListBacktestJobTrialsRequest) SetOffset(offset *int) {
@@ -233,14 +244,18 @@ var (
 	listBacktestJobsRequestFieldMode   = big.NewInt(1 << 0)
 	listBacktestJobsRequestFieldStatus = big.NewInt(1 << 1)
 	listBacktestJobsRequestFieldLimit  = big.NewInt(1 << 2)
-	listBacktestJobsRequestFieldOffset = big.NewInt(1 << 3)
+	listBacktestJobsRequestFieldCursor = big.NewInt(1 << 3)
+	listBacktestJobsRequestFieldOffset = big.NewInt(1 << 4)
 )
 
 type ListBacktestJobsRequest struct {
 	Mode   *string `json:"-" url:"mode,omitempty"`
 	Status *string `json:"-" url:"status,omitempty"`
 	Limit  *int    `json:"-" url:"limit,omitempty"`
-	Offset *int    `json:"-" url:"offset,omitempty"`
+	// Opaque position returned as `next_cursor` by the preceding page.
+	Cursor *string `json:"-" url:"cursor,omitempty"`
+	// Deprecated compatibility input. Pass the opaque `cursor` instead.
+	Offset *int `json:"-" url:"offset,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -272,6 +287,13 @@ func (l *ListBacktestJobsRequest) SetStatus(status *string) {
 func (l *ListBacktestJobsRequest) SetLimit(limit *int) {
 	l.Limit = limit
 	l.require(listBacktestJobsRequestFieldLimit)
+}
+
+// SetCursor sets the Cursor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListBacktestJobsRequest) SetCursor(cursor *string) {
+	l.Cursor = cursor
+	l.require(listBacktestJobsRequestFieldCursor)
 }
 
 // SetOffset sets the Offset field and marks it as non-optional;
@@ -8145,14 +8167,16 @@ func (c CreateBacktestJobResponseRunStatus) Ptr() *CreateBacktestJobResponseRunS
 // One stable, ascending page of persisted trial rows and only the rewards attached to those rows.
 var (
 	listBacktestJobTrialsResponseFieldHasMore    = big.NewInt(1 << 0)
-	listBacktestJobTrialsResponseFieldNextOffset = big.NewInt(1 << 1)
-	listBacktestJobTrialsResponseFieldRewards    = big.NewInt(1 << 2)
-	listBacktestJobTrialsResponseFieldTrials     = big.NewInt(1 << 3)
+	listBacktestJobTrialsResponseFieldNextCursor = big.NewInt(1 << 1)
+	listBacktestJobTrialsResponseFieldNextOffset = big.NewInt(1 << 2)
+	listBacktestJobTrialsResponseFieldRewards    = big.NewInt(1 << 3)
+	listBacktestJobTrialsResponseFieldTrials     = big.NewInt(1 << 4)
 )
 
 type ListBacktestJobTrialsResponse struct {
-	HasMore    bool `json:"hasMore" url:"hasMore"`
-	NextOffset *int `json:"nextOffset,omitempty" url:"nextOffset,omitempty"`
+	HasMore    bool    `json:"hasMore" url:"hasMore"`
+	NextCursor *string `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+	NextOffset *int    `json:"nextOffset,omitempty" url:"nextOffset,omitempty"`
 	// Outer key = trial id; inner key = reward name.
 	Rewards map[string]map[string]float64              `json:"rewards" url:"rewards"`
 	Trials  []*ListBacktestJobTrialsResponseTrialsItem `json:"trials" url:"trials"`
@@ -8169,6 +8193,13 @@ func (l *ListBacktestJobTrialsResponse) GetHasMore() bool {
 		return false
 	}
 	return l.HasMore
+}
+
+func (l *ListBacktestJobTrialsResponse) GetNextCursor() *string {
+	if l == nil {
+		return nil
+	}
+	return l.NextCursor
 }
 
 func (l *ListBacktestJobTrialsResponse) GetNextOffset() *int {
@@ -8211,6 +8242,13 @@ func (l *ListBacktestJobTrialsResponse) require(field *big.Int) {
 func (l *ListBacktestJobTrialsResponse) SetHasMore(hasMore bool) {
 	l.HasMore = hasMore
 	l.require(listBacktestJobTrialsResponseFieldHasMore)
+}
+
+// SetNextCursor sets the NextCursor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListBacktestJobTrialsResponse) SetNextCursor(nextCursor *string) {
+	l.NextCursor = nextCursor
+	l.require(listBacktestJobTrialsResponseFieldNextCursor)
 }
 
 // SetNextOffset sets the NextOffset field and marks it as non-optional;
@@ -9007,12 +9045,14 @@ func (l *ListBacktestJobTrialsResponseTrialsItemTimings) String() string {
 
 var (
 	listBacktestJobsResponseFieldHasMore    = big.NewInt(1 << 0)
-	listBacktestJobsResponseFieldNextOffset = big.NewInt(1 << 1)
-	listBacktestJobsResponseFieldRuns       = big.NewInt(1 << 2)
+	listBacktestJobsResponseFieldNextCursor = big.NewInt(1 << 1)
+	listBacktestJobsResponseFieldNextOffset = big.NewInt(1 << 2)
+	listBacktestJobsResponseFieldRuns       = big.NewInt(1 << 3)
 )
 
 type ListBacktestJobsResponse struct {
 	HasMore    bool                                `json:"hasMore" url:"hasMore"`
+	NextCursor *string                             `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
 	NextOffset *int                                `json:"nextOffset,omitempty" url:"nextOffset,omitempty"`
 	Runs       []*ListBacktestJobsResponseRunsItem `json:"runs" url:"runs"`
 
@@ -9028,6 +9068,13 @@ func (l *ListBacktestJobsResponse) GetHasMore() bool {
 		return false
 	}
 	return l.HasMore
+}
+
+func (l *ListBacktestJobsResponse) GetNextCursor() *string {
+	if l == nil {
+		return nil
+	}
+	return l.NextCursor
 }
 
 func (l *ListBacktestJobsResponse) GetNextOffset() *int {
@@ -9063,6 +9110,13 @@ func (l *ListBacktestJobsResponse) require(field *big.Int) {
 func (l *ListBacktestJobsResponse) SetHasMore(hasMore bool) {
 	l.HasMore = hasMore
 	l.require(listBacktestJobsResponseFieldHasMore)
+}
+
+// SetNextCursor sets the NextCursor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListBacktestJobsResponse) SetNextCursor(nextCursor *string) {
+	l.NextCursor = nextCursor
+	l.require(listBacktestJobsResponseFieldNextCursor)
 }
 
 // SetNextOffset sets the NextOffset field and marks it as non-optional;

@@ -56,8 +56,11 @@ func (c *Client) ListEnvironments(
 // Example:
 //
 //	request := &chroniclego.CreateEnvironmentRequest{
-//	    Slug: "slug",
-//	    Label: "label",
+//	    Slug: "support-sandbox",
+//	    Label: "Support sandbox",
+//	    Description: chroniclego.String(
+//	        "Isolated environment for support-agent backtests.",
+//	    ),
 //	}
 //	client.Environments.CreateEnvironment(
 //	    context.TODO(),
