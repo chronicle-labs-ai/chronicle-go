@@ -24,7 +24,7 @@ var (
 )
 
 type AddTaskFromTraceRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey *string `json:"-" url:"-"`
 	DatasetID      string  `json:"-" url:"-"`
 	// Accepted for compatibility but never trusted as the authoritative capture. The service re-reads the canonical store by subject.
@@ -184,7 +184,7 @@ var (
 )
 
 type CreateTaskSuitePayload struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey *string `json:"-" url:"-"`
 	Description    *string `json:"description,omitempty" url:"-"`
 	Name           string  `json:"name" url:"-"`
@@ -270,7 +270,7 @@ var (
 )
 
 type CreateClusterRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey                     *string   `json:"-" url:"-"`
 	DatasetID                          string    `json:"-" url:"-"`
 	Color                              string    `json:"color" url:"-"`
@@ -373,7 +373,7 @@ var (
 )
 
 type CreateSavedViewRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey                       *string                      `json:"-" url:"-"`
 	DatasetID                            string                       `json:"-" url:"-"`
 	Description                          *string                      `json:"description,omitempty" url:"-"`
@@ -485,7 +485,7 @@ var (
 )
 
 type CreateDatasetTaskRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey *string           `json:"-" url:"-"`
 	DatasetID      string            `json:"-" url:"-"`
 	Body           CreateTaskRequest `json:"-" url:"-"`
@@ -535,7 +535,7 @@ var (
 )
 
 type CreateTaskSuiteWithTraceRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey *string                                 `json:"-" url:"-"`
 	Dataset        *CreateTaskSuiteWithTraceRequestDataset `json:"dataset" url:"-"`
 	Trace          *CreateTaskSuiteWithTraceRequestTrace   `json:"trace" url:"-"`
@@ -1203,7 +1203,7 @@ var (
 )
 
 type PublishVersionRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey                      *string `json:"-" url:"-"`
 	DatasetID                           string  `json:"-" url:"-"`
 	Description                         *string `json:"description,omitempty" url:"-"`
@@ -1284,7 +1284,7 @@ var (
 )
 
 type RefreshDatasetTaskRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey *string                   `json:"-" url:"-"`
 	DatasetID      string                    `json:"-" url:"-"`
 	MembershipID   string                    `json:"-" url:"-"`
@@ -1342,7 +1342,7 @@ var (
 )
 
 type RefreshDatasetTraceRequest struct {
-	// Optional caller-generated key for safely retrying a mutation.
+	// Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
 	IdempotencyKey *string                   `json:"-" url:"-"`
 	DatasetID      string                    `json:"-" url:"-"`
 	MembershipID   string                    `json:"-" url:"-"`

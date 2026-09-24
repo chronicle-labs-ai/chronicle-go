@@ -364,7 +364,7 @@ func TestSettersErrorResponse(t *testing.T) {
 
 	t.Run("SetCode", func(t *testing.T) {
 		obj := &ErrorResponse{}
-		var fernTestValueCode ErrorResponseCode
+		var fernTestValueCode string
 		obj.SetCode(fernTestValueCode)
 		assert.Equal(t, fernTestValueCode, obj.Code)
 		assert.NotNil(t, obj.explicitFields)
@@ -509,7 +509,7 @@ func TestGettersErrorResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ErrorResponse{}
-		var expected ErrorResponseCode
+		var expected string
 		obj.Code = expected
 
 		// Act & Assert
@@ -784,7 +784,7 @@ func TestSettersMarkExplicitErrorResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ErrorResponse{}
-		var fernTestValueCode ErrorResponseCode
+		var fernTestValueCode string
 
 		// Act
 		obj.SetCode(fernTestValueCode)
@@ -2827,119 +2827,6 @@ func TestStringPendingEntityRef(t *testing.T) {
 		var obj *PendingEntityRef
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
-	})
-}
-
-func TestEnumErrorResponseCode(t *testing.T) {
-	t.Run("NewFromString_not_found", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("not_found")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("not_found"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_bad_request", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("bad_request")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("bad_request"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_unauthorized", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("unauthorized")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("unauthorized"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_validation_error", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("validation_error")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("validation_error"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_unsupported_media_type", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("unsupported_media_type")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("unsupported_media_type"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_payload_too_large", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("payload_too_large")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("payload_too_large"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_rate_limited", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("rate_limited")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("rate_limited"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_stream_replay_limit_exceeded", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("stream_replay_limit_exceeded")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("stream_replay_limit_exceeded"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_stream_unavailable", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("stream_unavailable")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("stream_unavailable"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_service_overloaded", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("service_overloaded")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("service_overloaded"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_request_timeout", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("request_timeout")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("request_timeout"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_stream_error", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("stream_error")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("stream_error"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_store_error", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("store_error")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("store_error"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_internal_error", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewErrorResponseCodeFromString("internal_error")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, ErrorResponseCode("internal_error"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewErrorResponseCodeFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewErrorResponseCodeFromString("not_found")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
 	})
 }
 

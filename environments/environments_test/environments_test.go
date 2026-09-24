@@ -111,8 +111,11 @@ func TestEnvironmentsCreateEnvironmentWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &chroniclego.CreateEnvironmentRequest{
-		Slug:  "slug",
-		Label: "label",
+		Slug:  "support-sandbox",
+		Label: "Support sandbox",
+		Description: chroniclego.String(
+			"Isolated environment for support-agent backtests.",
+		),
 	}
 	_, invocationErr := client.Environments.CreateEnvironment(
 		context.TODO(),

@@ -44,9 +44,21 @@ func do() {
         ),
     )
     request := &chroniclego.IngestRequest{
-        Source: "my-agent",
+        Source: "support-agent",
         Topic: "conversations",
         EventType: "message.sent",
+        Entities: map[string]string{
+            "user": "usr_123",
+        },
+        Payload: map[string]any{
+            "content": "Your refund is approved.",
+            "role": "assistant",
+        },
+        Timestamp: chroniclego.Time(
+            chroniclego.MustParseDateTime(
+                "2026-09-24T14:30:00Z",
+            ),
+        ),
     }
     client.Events.IngestEvent(
         context.TODO(),

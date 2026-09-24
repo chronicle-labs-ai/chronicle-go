@@ -46,7 +46,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"event_ids\": [\n    \"event_ids\"\n  ],\n  \"count\": 1\n}",
+        "body": "{\n  \"event_ids\": [\n    \"evt_01k5z6x7c8v9b0n1m2q3r4s5t6\"\n  ],\n  \"count\": 1\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2230,7 +2230,7 @@
       },
       "response": {
         "status": 201,
-        "body": "{\n  \"environment\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"description\": \"description\",\n    \"id\": \"id\",\n    \"label\": \"label\",\n    \"slug\": \"slug\",\n    \"tenantId\": \"tenantId\"\n  },\n  \"versions\": [\n    {\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"environmentId\": \"environmentId\",\n      \"id\": \"id\",\n      \"spec\": {\n        \"interception\": {}\n      },\n      \"status\": \"draft\",\n      \"tenantId\": \"tenantId\",\n      \"version\": \"version\"\n    }\n  ]\n}",
+        "body": "{\n  \"environment\": {\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdAt\": \"2026-09-24T14:30:00Z\",\n    \"description\": \"Isolated environment for support-agent backtests.\",\n    \"id\": \"env_01k5z6x7c8v9b0n1m2q3r4s5t6\",\n    \"label\": \"Support sandbox\",\n    \"slug\": \"support-sandbox\",\n    \"tenantId\": \"tenant_example\"\n  },\n  \"versions\": [\n    {\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"environmentId\": \"environmentId\",\n      \"id\": \"id\",\n      \"spec\": {\n        \"interception\": {}\n      },\n      \"status\": \"draft\",\n      \"tenantId\": \"tenantId\",\n      \"version\": \"version\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2479,7 +2479,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"hasMore\": true,\n  \"nextOffset\": 1,\n  \"runs\": [\n    {\n      \"agentIds\": [\n        \"agentIds\"\n      ],\n      \"datasetLabel\": \"datasetLabel\",\n      \"divergences\": 1,\n      \"environmentLabel\": \"environmentLabel\",\n      \"hue\": \"hue\",\n      \"id\": \"id\",\n      \"mode\": \"replay\",\n      \"name\": \"name\",\n      \"owner\": \"owner\",\n      \"scheduledFor\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"running\",\n      \"totalRuns\": 1,\n      \"updatedAt\": \"2024-01-15T09:30:00Z\",\n      \"verdict\": \"verdict\"\n    }\n  ]\n}",
+        "body": "{\n  \"hasMore\": true,\n  \"nextCursor\": \"nextCursor\",\n  \"nextOffset\": 1,\n  \"runs\": [\n    {\n      \"agentIds\": [\n        \"agentIds\"\n      ],\n      \"datasetLabel\": \"datasetLabel\",\n      \"divergences\": 1,\n      \"environmentLabel\": \"environmentLabel\",\n      \"hue\": \"hue\",\n      \"id\": \"id\",\n      \"mode\": \"replay\",\n      \"name\": \"name\",\n      \"owner\": \"owner\",\n      \"scheduledFor\": \"2024-01-15T09:30:00Z\",\n      \"status\": \"running\",\n      \"totalRuns\": 1,\n      \"updatedAt\": \"2024-01-15T09:30:00Z\",\n      \"verdict\": \"verdict\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2583,7 +2583,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"hasMore\": true,\n  \"nextOffset\": 1,\n  \"rewards\": {\n    \"key\": {\n      \"key\": 1.1\n    }\n  },\n  \"trials\": [\n    {\n      \"agentId\": \"agentId\",\n      \"agentLabel\": \"agentLabel\",\n      \"attempt\": 1,\n      \"caseCluster\": \"caseCluster\",\n      \"caseId\": \"caseId\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"durationMs\": 1,\n      \"exception\": {\n        \"kind\": \"kind\",\n        \"message\": \"message\"\n      },\n      \"id\": \"id\",\n      \"instruction\": \"instruction\",\n      \"isBaseline\": true,\n      \"jobId\": \"jobId\",\n      \"sandboxId\": \"sandboxId\",\n      \"status\": \"pending\",\n      \"tenantId\": \"tenantId\",\n      \"timings\": {},\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ]\n}",
+        "body": "{\n  \"hasMore\": true,\n  \"nextCursor\": \"nextCursor\",\n  \"nextOffset\": 1,\n  \"rewards\": {\n    \"key\": {\n      \"key\": 1.1\n    }\n  },\n  \"trials\": [\n    {\n      \"agentId\": \"agentId\",\n      \"agentLabel\": \"agentLabel\",\n      \"attempt\": 1,\n      \"caseCluster\": \"caseCluster\",\n      \"caseId\": \"caseId\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"durationMs\": 1,\n      \"exception\": {\n        \"kind\": \"kind\",\n        \"message\": \"message\"\n      },\n      \"id\": \"id\",\n      \"instruction\": \"instruction\",\n      \"isBaseline\": true,\n      \"jobId\": \"jobId\",\n      \"sandboxId\": \"sandboxId\",\n      \"status\": \"pending\",\n      \"tenantId\": \"tenantId\",\n      \"timings\": {},\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }

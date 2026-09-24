@@ -142,9 +142,21 @@ Requires scope events:write.
 
 ```go
 request := &chroniclego.IngestRequest{
-    Source: "my-agent",
+    Source: "support-agent",
     Topic: "conversations",
     EventType: "message.sent",
+    Entities: map[string]string{
+        "user": "usr_123",
+    },
+    Payload: map[string]any{
+        "content": "Your refund is approved.",
+        "role": "assistant",
+    },
+    Timestamp: chroniclego.Time(
+        chroniclego.MustParseDateTime(
+            "2026-09-24T14:30:00Z",
+        ),
+    ),
 }
 client.Events.IngestEvent(
     context.TODO(),
@@ -2061,7 +2073,7 @@ client.Datasets.CreateDataset(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -2144,7 +2156,7 @@ client.Datasets.CreateDatasetWithTrace(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -2501,7 +2513,7 @@ client.Datasets.AddTraceToDataset(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -2758,7 +2770,7 @@ client.Datasets.RefreshDatasetTrace(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -3002,7 +3014,7 @@ client.Datasets.CreateDatasetTask(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -3397,7 +3409,7 @@ client.Datasets.RefreshDatasetTask(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -3507,7 +3519,7 @@ client.Datasets.CreateDatasetCluster(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -3792,7 +3804,7 @@ client.Datasets.CreateDatasetSavedView(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -4114,7 +4126,7 @@ client.Datasets.PublishDatasetVersion(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -4293,8 +4305,11 @@ client.Environments.ListEnvironments(
 
 ```go
 request := &chroniclego.CreateEnvironmentRequest{
-    Slug: "slug",
-    Label: "label",
+    Slug: "support-sandbox",
+    Label: "Support sandbox",
+    Description: chroniclego.String(
+        "Isolated environment for support-agent backtests.",
+    ),
 }
 client.Environments.CreateEnvironment(
     context.TODO(),
@@ -4717,7 +4732,15 @@ client.Backtests.ListBacktestJobs(
 <dl>
 <dd>
 
-**offset:** `*int` 
+**cursor:** `*string` — Opaque position returned as `next_cursor` by the preceding page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offset:** `*int` — Deprecated compatibility input. Pass the opaque `cursor` instead.
     
 </dd>
 </dl>
@@ -4817,7 +4840,7 @@ client.Backtests.CreateBacktestJob(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation.
+**idempotencyKey:** `*string` — Optional caller-generated key for safely retrying a mutation after an ambiguous network failure. Keys are scoped to the authenticated tenant and operation. Reusing a key with the same payload returns the original successful result; reusing it with a different payload returns 409.
     
 </dd>
 </dl>
@@ -4965,7 +4988,15 @@ client.Backtests.ListBacktestJobTrials(
 <dl>
 <dd>
 
-**offset:** `*int` 
+**cursor:** `*string` — Opaque position returned as `next_cursor` by the preceding page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offset:** `*int` — Deprecated compatibility input. Pass the opaque `cursor` instead.
     
 </dd>
 </dl>
